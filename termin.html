@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="components.css">
   <link rel="stylesheet" href="termin.css">
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="js/calendly-lazy.js"></script>
 </head>
 <body>
 
@@ -38,7 +38,7 @@
       <h1>Finde heraus, ob wir dir helfen können</h1>
       <p>Kein Pitch. Kein Druck. Wir schauen gemeinsam auf deine sportliche Geschichte und entscheiden ehrlich, ob Coaching für dich der richtige nächste Schritt ist.</p>
       <a href=""
-         onclick="Calendly.initPopupWidget({url:'https://calendly.com/risepp/sign-up'}); return false;"
+         onclick="openCalendly(); return false;"
          class="btn btn--primary btn--lg termin-cta">
         Termin buchen &rarr;
       </a>
@@ -103,6 +103,5 @@
     });
   </script>
 
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
