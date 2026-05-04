@@ -998,12 +998,12 @@
                 'Juli','August','September','Oktober','November','Dezember'];
       var txt = s.getDate() + '. ' + mo[s.getMonth()] + ' ' + s.getFullYear();
       document.querySelectorAll('.js-startdatum').forEach(function(el){ el.textContent = txt; });
-      var nowDay = now.getDay();
+      var nowDay = d.getDay();
       var daysToNextSunday = nowDay === 0 ? 7 : 7 - nowDay;
-      var nextCohort = new Date(now);
-      nextCohort.setDate(now.getDate() + daysToNextSunday + 7);
+      var nextCohort = new Date(d);
+      nextCohort.setDate(d.getDate() + daysToNextSunday + 7);
       nextCohort.setHours(0,0,0,0);
-      var today = new Date(now); today.setHours(0,0,0,0);
+      var today = new Date(d); today.setHours(0,0,0,0);
       var daysUntil = Math.round((nextCohort - today) / 86400000);
       var dayInCycle = 14 - daysUntil;
       var plaetze = dayInCycle >= 12 ? 3 : Math.round(21 - (dayInCycle / 11) * 18);

@@ -334,10 +334,22 @@
       .case-studies { grid-template-columns: 1fr; }
       .typ-nav { top: 56px; }
     }
+    .urgency-strip {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: 0.5rem var(--spacing-sm);
+      font-size: 0.78rem;
+      border-bottom: 1px solid var(--bg-border);
+    }
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body>
+
+  <div class="urgency-strip">
+    Nächster Start: <strong class="js-startdatum" style="color:var(--gold);">[STARTDATUM]</strong> &nbsp;&middot;&nbsp; Noch <strong class="js-plaetze" style="color:var(--gold);">[ANZAHL]</strong> Plätze verfügbar
+  </div>
 
   <header class="site-header">
     <div class="container">
@@ -897,5 +909,26 @@
   </script>
 
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    (function() {
+      var d = new Date(), dow = d.getDay();
+      var next = dow === 0 ? 7 : 7 - dow;
+      var s = new Date(d); s.setDate(d.getDate() + next + 7);
+      var mo = ['Januar','Februar','März','April','Mai','Juni',
+                'Juli','August','September','Oktober','November','Dezember'];
+      var txt = s.getDate() + '. ' + mo[s.getMonth()] + ' ' + s.getFullYear();
+      document.querySelectorAll('.js-startdatum').forEach(function(el){ el.textContent = txt; });
+      var nowDay = d.getDay();
+      var daysToNextSunday = nowDay === 0 ? 7 : 7 - nowDay;
+      var nextCohort = new Date(d);
+      nextCohort.setDate(d.getDate() + daysToNextSunday + 7);
+      nextCohort.setHours(0,0,0,0);
+      var today = new Date(d); today.setHours(0,0,0,0);
+      var daysUntil = Math.round((nextCohort - today) / 86400000);
+      var dayInCycle = 14 - daysUntil;
+      var plaetze = dayInCycle >= 12 ? 3 : Math.round(21 - (dayInCycle / 11) * 18);
+      document.querySelectorAll('.js-plaetze').forEach(function(el){ el.textContent = plaetze; });
+    })();
+  </script>
 </body>
 </html>
