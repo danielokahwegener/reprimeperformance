@@ -60,7 +60,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>RePrime Athlet Coaching &copy; 2025 &nbsp;&middot;&nbsp; <a href="#">Impressum</a> &nbsp;&middot;&nbsp; <a href="#">Datenschutz</a></p>
+      <p>RePrime Athlet Coaching &copy; 2026 &nbsp;&middot;&nbsp; <a href="#">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
     </div>
   </footer>
 
@@ -73,7 +73,15 @@
                 'Juli','August','September','Oktober','November','Dezember'];
       var txt = s.getDate() + '. ' + mo[s.getMonth()] + ' ' + s.getFullYear();
       document.querySelectorAll('.js-startdatum').forEach(function(el){ el.textContent = txt; });
-      var plaetze = Math.floor(Math.random() * 6) + 2;
+      var nowDay = now.getDay();
+      var daysToNextSunday = nowDay === 0 ? 7 : 7 - nowDay;
+      var nextCohort = new Date(now);
+      nextCohort.setDate(now.getDate() + daysToNextSunday + 7);
+      nextCohort.setHours(0,0,0,0);
+      var today = new Date(now); today.setHours(0,0,0,0);
+      var daysUntil = Math.round((nextCohort - today) / 86400000);
+      var dayInCycle = 14 - daysUntil;
+      var plaetze = dayInCycle >= 12 ? 3 : Math.round(21 - (dayInCycle / 11) * 18);
       document.querySelectorAll('.js-plaetze').forEach(function(el){ el.textContent = plaetze; });
     })();
   </script>
