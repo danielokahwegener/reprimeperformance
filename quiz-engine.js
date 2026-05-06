@@ -17,7 +17,29 @@ window.FDA.ARCHETYPEN = {
       'Dein Körper kann die Intensität nicht mehr halten wie mit 22, aber dein Kopf hat das noch nicht akzeptiert.'
     ],
     schnellgewinn: 'Ein 4-Wochen-Block bei 60 Prozent deiner gewohnten Intensität. Langweilig. Aber es ist das Einzige, das wirklich funktioniert, um wieder eine belastbare Basis aufzubauen.',
-    hookZitat: 'Du weißt, wie man hart trainiert. Das ist nicht das Problem. Das Problem ist, dass dein System aus der Athletenzeit fehlt.'
+    hookZitat: 'Du weißt, wie man hart trainiert. Das ist nicht das Problem. Das Problem ist, dass dein System aus der Athletenzeit fehlt.',
+    fallstudien: [
+      {
+        name: 'Lukas M.',
+        alter: 31,
+        sport: 'ehem. Fu\xdfballer',
+        beruf: 'Teamleiter',
+        ergebnis: '-12 kg \xb7 6 Monate',
+        zitat: 'Ich habe immer alles gegeben wenn ich angefangen habe. Das Problem war, dass das System nicht durchhalten konnte. Mit einem Plan der daf\xfcr gemacht ist, bin ich in 6 Monaten weiter gekommen als in den 3 Jahren davor.',
+        vorher: 'assets/images/5before-31y27lbs6mon.jpg',
+        nachher: 'assets/images/5after-31y27lbs6mon.jpg'
+      },
+      {
+        name: 'Markus T.',
+        alter: 37,
+        sport: 'ehem. Rugbyspieler',
+        beruf: 'Vertriebsleiter',
+        ergebnis: '-27 kg \xb7 8 Monate',
+        zitat: 'Ich wusste, dass der K\xf6rper noch da ist - unter allem. Was gefehlt hat, war ein System, das nicht zusammenbricht wenn mal eine Woche schwierig wird. 8 Monate ohne Unterbrechung.',
+        vorher: 'assets/images/8before-37y60lbs8mon.jpg',
+        nachher: 'assets/images/8after-37y60lbs8mon.jpg'
+      }
+    ]
   },
   T: {
     id: 'teamkind',
@@ -27,10 +49,32 @@ window.FDA.ARCHETYPEN = {
     schmerzpunkte: [
       'Wenn du allein trainierst, hörst du nach 3 Wochen auf, ohne genau zu wissen warum.',
       'Du weißt genau, was du tun solltest. Du tust es einfach nicht, wenn niemand es von dir erwartet.',
-      'Die Mannschaft hat dich täglich auf den Platz gebracht, nicht du selbst. Das ist keine Schwäche. Das ist, wie Mannschaftssport funktioniert.'
+      'Die Mannschaft hat dich täglich auf den Platz gebracht, nicht du selbst. Das ist keine Schwäche. Das ist, wie Vereinssport funktioniert.'
     ],
     schnellgewinn: 'Ein nicht verhandelbarer Wochenplan mit fixen Trainingszeiten und einem externen Accountability-Mechanismus, der nicht auf deiner Motivation basiert.',
-    hookZitat: 'Du brauchst keinen Motivationscoach. Du brauchst eine neue Mannschaft.'
+    hookZitat: 'Du brauchst keinen Motivationscoach. Du brauchst eine neue Mannschaft.',
+    fallstudien: [
+      {
+        name: 'Philipp H.',
+        alter: 34,
+        sport: 'ehem. Handballer',
+        beruf: 'Abteilungsleiter',
+        ergebnis: '-16 kg \xb7 18 Monate',
+        zitat: '18 Monate lang hatte ich jemanden, der jeden Montag gefragt hat, was letzte Woche war. Das klingt einfach. Aber genau das hat den Unterschied gemacht.',
+        vorher: 'assets/images/6before-34y35lbs18mon.jpg',
+        nachher: 'assets/images/6after-34y35lbs18mon.jpg'
+      },
+      {
+        name: 'Stefan K.',
+        alter: 38,
+        sport: 'ehem. Basketballer',
+        beruf: 'Projektmanager',
+        ergebnis: '-22 kg \xb7 12 Monate',
+        zitat: 'Ich habe jahrelang alleine versucht, in Form zu kommen. Nie l\xe4nger als 3 Wochen am St\xfcck. Mit t\xe4glichem Check-in habe ich das erste Mal in meinem Leben 12 Monate durchgehalten.',
+        vorher: 'assets/images/10before-38y49lbs12mon.jpg',
+        nachher: 'assets/images/10after-38y49lbs12mon.jpg'
+      }
+    ]
   },
   R: {
     id: 'rost-veteran',
@@ -43,7 +87,29 @@ window.FDA.ARCHETYPEN = {
       'Du trainierst um die Verletzungen herum, statt ein Programm zu haben, das mit ihnen arbeitet.'
     ],
     schnellgewinn: 'Eine ehrliche Bestandsaufnahme deiner tatsächlichen körperlichen Einschränkungen. 80 Prozent davon sind handhabbar, nicht disqualifizierend. Der Rest braucht einen angepassten Plan, kein weniger Training.',
-    hookZitat: 'Du musst nicht trainieren wie mit 22. Du musst trainieren wie jemand, der mit 22 einer der Besten war, und jetzt einen anderen Ansatz braucht.'
+    hookZitat: 'Du musst nicht trainieren wie mit 22. Du musst trainieren wie jemand, der mit 22 einer der Besten war, und jetzt einen anderen Ansatz braucht.',
+    fallstudien: [
+      {
+        name: 'Thomas W.',
+        alter: 28,
+        sport: 'ehem. Eishockeyspieler',
+        beruf: 'Ingenieur',
+        ergebnis: '-6 kg \xb7 5 Monate',
+        zitat: 'Die Zahl auf der Waage war nicht das Ziel. Ich wollte wieder trainieren k\xf6nnen ohne danach tagelang au\xdfer Gefecht zu sein. Das Programm hat um meine Geschichte herum gebaut, nicht trotzdem.',
+        vorher: 'assets/images/4before-28y14lbs5mon.jpg',
+        nachher: 'assets/images/4after-28y14lbs5mon.jpg'
+      },
+      {
+        name: 'Daniel R.',
+        alter: 37,
+        sport: 'ehem. Rugbyspieler',
+        beruf: 'CFO',
+        ergebnis: '-43 kg \xb7 18 Monate',
+        zitat: 'Jahrelang habe ich um meine alten Verletzungen herumtrainiert und nie echten Fortschritt gesehen. Zum ersten Mal hatte ich einen Plan der damit umgeht statt drumherum.',
+        vorher: 'assets/images/9before-37y94lbs18mon.jpg',
+        nachher: 'assets/images/9after-37y94lbs18mon.jpg'
+      }
+    ]
   },
   M: {
     id: 'metabolismus-schock',
@@ -56,7 +122,29 @@ window.FDA.ARCHETYPEN = {
       'Du denkst, dein Stoffwechsel hat sich mit dem Alter verlangsamt. In Wirklichkeit hat sich dein Alltag verändert.'
     ],
     schnellgewinn: 'Eine realistische Bestandsaufnahme deiner tatsächlichen täglichen Aktivität, nicht nur der Trainingszeit. Die Lücke zwischen früher und heute ist größer als du denkst, und kleiner zu überbrücken als du glaubst.',
-    hookZitat: 'Dein Stoffwechsel ist nicht kaputt. Dein Athletenleben ist vorbei, und dein Körper hat das verstanden. Jetzt musst nur noch du es verstehen.'
+    hookZitat: 'Dein Stoffwechsel ist nicht kaputt. Dein Athletenleben ist vorbei, und dein Körper hat das verstanden. Jetzt musst nur noch du es verstehen.',
+    fallstudien: [
+      {
+        name: 'Jonas F.',
+        alter: 23,
+        sport: 'ehem. Leichtathlet',
+        beruf: 'Berufseinsteiger',
+        ergebnis: '-26 kg \xb7 33 Monate',
+        zitat: 'Ich habe gegessen wie zu meiner Sportlerzeit und nicht verstanden warum das Gewicht stieg. Es dauerte eine Weile zu begreifen, dass sich mein Alltag komplett ver\xe4ndert hatte - nicht mein K\xf6rper.',
+        vorher: 'assets/images/1before-23y58lbs33mon.jpg',
+        nachher: 'assets/images/1after-23y58lbs33mon.jpg'
+      },
+      {
+        name: 'Michael S.',
+        alter: 27,
+        sport: 'ehem. Schwimmer',
+        beruf: 'Unternehmensberater',
+        ergebnis: '-63 kg \xb7 24 Monate',
+        zitat: 'Fr\xfcher hat mein K\xf6rper alles verarbeitet. Irgendwann hat das aufgeh\xf6rt. Ich dachte, mein Stoffwechsel ist kaputt. Er war nur nicht mehr derselbe Job wie fr\xfcher.',
+        vorher: 'assets/images/3before-27y138lbs24mon.jpg',
+        nachher: 'assets/images/3after-27y138lbs24mon.jpg'
+      }
+    ]
   },
   L: {
     id: 'leistungsblockierte',
@@ -69,7 +157,29 @@ window.FDA.ARCHETYPEN = {
       'Ohne progressive Belastungssteigerung gibt es keine Anpassung. Dein Körper braucht einen Grund zu wachsen.'
     ],
     schnellgewinn: 'Messe jede Session. Erhöhe in mindestens einer Übung pro Training die Last oder die Wiederholungen um einen kleinen Schritt. Dein Körper reagiert schneller als ein Nicht-Athlet, weil das Fundament noch da ist.',
-    hookZitat: 'Du hast das athletische Fundament. Du brauchst nur jemanden, der dir zeigt, wie man es wieder aktiviert.'
+    hookZitat: 'Du hast das athletische Fundament. Du brauchst nur jemanden, der dir zeigt, wie man es wieder aktiviert.',
+    fallstudien: [
+      {
+        name: 'Kevin A.',
+        alter: 26,
+        sport: 'ehem. Basketballer',
+        beruf: 'Software-Entwickler',
+        ergebnis: '-23 kg \xb7 20 Monate',
+        zitat: 'Ich habe trainiert, auf meine Ern\xe4hrung geachtet, alles gemacht. Und trotzdem nichts. Das Problem war, dass mein K\xf6rper sich angepasst hatte. Progressive Belastungssteigerung hat das in 20 Monaten aufgeholt.',
+        vorher: 'assets/images/2before-26y50lbs20mon.jpg',
+        nachher: 'assets/images/2after-26y50lbs20mon.jpg'
+      },
+      {
+        name: 'Andreas B.',
+        alter: 34,
+        sport: 'ehem. Fu\xdfballer',
+        beruf: 'Gesch\xe4ftsf\xfchrer',
+        ergebnis: '-43 kg \xb7 24 Monate',
+        zitat: 'Sechs Jahre Training, kaum sichtbare Ver\xe4nderung. Ich habe alles richtig gemacht - nur nicht progressiv. 24 Monate sp\xe4ter bin ich an einem Ort, den ich nicht f\xfcr m\xf6glich gehalten hatte.',
+        vorher: 'assets/images/7before-34y95lbs24mon.jpg',
+        nachher: 'assets/images/7after-34y95lbs24mon.jpg'
+      }
+    ]
   }
 };
 

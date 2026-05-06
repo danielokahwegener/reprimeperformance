@@ -376,55 +376,10 @@
         </div>
       </div>
 
-      <!-- Ergebnisse -->
+      <!-- Ergebnisse (dynamisch nach Archetyp) -->
       <div class="testimonials-block fade-in">
-        <p class="testimonials-label">Das sagen ehemalige Vereinssportler</p>
-
-        <div class="testimonials-grid">
-
-          <div class="testimonial-card">
-            <div class="transformation-imgs">
-              <img src="vorher-1.jpg" alt="Markus T. Vorher">
-              <img src="nachher-1.jpg" alt="Markus T. Nachher">
-              <span class="transformation-label vorher">Vorher</span>
-              <span class="transformation-label nachher">Nachher</span>
-            </div>
-            <div class="testimonial-content">
-              <div class="testimonial-result">-13 kg &middot; 11 Wochen</div>
-              <p class="testimonial-quote">„Ich habe 12 Jahre Fußball gespielt und danach nie wieder eine Struktur gefunden, die gehalten hat. Nach 6 Wochen merkte ich, dass es diesmal anders ist."</p>
-              <div class="testimonial-who">Markus T. <span>&middot; 38 Jahre &middot; ehem. Fußballer &middot; Vertriebsleiter</span></div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="transformation-imgs">
-              <img src="vorher-2.jpg" alt="Stefan K. Vorher">
-              <img src="nachher-2.jpg" alt="Stefan K. Nachher">
-              <span class="transformation-label vorher">Vorher</span>
-              <span class="transformation-label nachher">Nachher</span>
-            </div>
-            <div class="testimonial-content">
-              <div class="testimonial-result">-10 kg &middot; 10 Wochen</div>
-              <p class="testimonial-quote">„Als Basketball-Spieler war ich es gewohnt, dass ein Coach mir sagt, was zu tun ist. Genau das hat gefehlt. Mit dem Programm hatte ich das wieder."</p>
-              <div class="testimonial-who">Stefan K. <span>&middot; 41 Jahre &middot; ehem. Basketballer &middot; IT-Management</span></div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="transformation-imgs">
-              <img src="vorher-3.jpg" alt="Daniel R. Vorher">
-              <img src="nachher-3.jpg" alt="Daniel R. Nachher">
-              <span class="transformation-label vorher">Vorher</span>
-              <span class="transformation-label nachher">Nachher</span>
-            </div>
-            <div class="testimonial-content">
-              <div class="testimonial-result">-9 kg &middot; 9 Wochen</div>
-              <p class="testimonial-quote">„Mein Knie hat mich seit meiner Rugbyzeit begrenzt. Das erste Mal seit Jahren habe ich einen Plan, der damit umgeht statt drumherum."</p>
-              <div class="testimonial-who">Daniel R. <span>&middot; 36 Jahre &middot; ehem. Rugbyspieler &middot; Projektleiter</span></div>
-            </div>
-          </div>
-
-        </div>
+        <p class="testimonials-label" id="fallstudien-label">Das sagen ehemalige Vereinssportler</p>
+        <div id="fallstudien-grid" class="testimonials-grid"></div>
       </div>
 
       <!-- Angebot-Karte -->
@@ -515,6 +470,35 @@
       document.querySelectorAll('.js-plaetze').forEach(function(el) { el.textContent = plaetze; });
     })();
 
+    function renderFallstudien(key) {
+      var grid  = document.getElementById('fallstudien-grid');
+      var label = document.getElementById('fallstudien-label');
+      if (!grid) return;
+      if (!key || !window.FDA.ARCHETYPEN[key] || !window.FDA.ARCHETYPEN[key].fallstudien) return;
+
+      var at = window.FDA.ARCHETYPEN[key];
+      var kurzname = at.name.replace('Der ', '').replace('Das ', '');
+      if (label) label.textContent = 'Das sagen andere ' + kurzname + 'n';
+
+      grid.innerHTML = at.fallstudien.map(function(fs) {
+        return '<div class="testimonial-card">' +
+          '<div class="transformation-imgs">' +
+            '<img src="' + fs.vorher + '" alt="' + fs.name + ' Vorher" loading="lazy">' +
+            '<img src="' + fs.nachher + '" alt="' + fs.name + ' Nachher" loading="lazy">' +
+            '<span class="transformation-label vorher">Vorher</span>' +
+            '<span class="transformation-label nachher">Nachher</span>' +
+          '</div>' +
+          '<div class="testimonial-content">' +
+            '<div class="testimonial-result">' + fs.ergebnis + '</div>' +
+            '<p class="testimonial-quote">„' + fs.zitat + '“</p>' +
+            '<div class="testimonial-who">' + fs.name +
+              ' <span>&middot; ' + fs.alter + ' Jahre &middot; ' + fs.sport + ' &middot; ' + fs.beruf + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       var params  = new URLSearchParams(window.location.search);
       var urlTyp  = params.get('typ');
@@ -534,6 +518,8 @@
         chip.textContent = window.FDA.ARCHETYPEN[key].name;
         chip.style.display = 'inline-block';
       }
+
+      renderFallstudien(key);
 
       document.getElementById('btn-platz-sichern').addEventListener('click', function() {
         var email = '';
