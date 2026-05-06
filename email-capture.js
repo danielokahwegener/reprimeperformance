@@ -1,6 +1,6 @@
 /* =============================================
    EMAIL-CAPTURE.JS — MailerLite-Integration
-   Nach Erfolg: Ergebnis einblenden (kein Redirect)
+   Nach Erfolg: Weiterleitung zu anmeldung.html
    ============================================= */
 
 window.FDA = window.FDA || {};
@@ -17,6 +17,10 @@ window.FDA = window.FDA || {};
     (z.B. "Vollgasathlet", "Teamkind" usw.)
     Jede Gruppe anklicken → die Zahl am Ende der URL ist die Group-ID.
     Diese Gruppen werden als Trigger für die jeweilige Automatisierung genutzt.
+
+  CUSTOM FIELDS (müssen in MailerLite angelegt werden):
+    MailerLite → Subscribers → Fields → Add field (Type: Text) für:
+    sport, niveau, letzte_saison, alter_gruppe, gewicht_plus
 */
 window.FDA.ML_CONFIG = {
   apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiZWUyOWYyZDM3OTdjMGU4OWJlZDRkNmYxYjljOTJlN2FjODY1MjdmOWRlZTY4YzI1MDMyNDRkOGY1MTRlYzczODQ5MWNhZjg1OTNjMWJiNmIiLCJpYXQiOjE3Nzc2NDgyODUuODQ4NzY5LCJuYmYiOjE3Nzc2NDgyODUuODQ4Nzc0LCJleHAiOjQ5MzMzMjE4ODUuODM0Mjc2LCJzdWIiOiIyMzI3NzU4Iiwic2NvcGVzIjpbXX0.fj1Tk9I81HPcT2PQP2pjSiiy2BMmpX-hunHVw2guNpDibthoQw9DPQNovfGB_mpc6GPqXsYSOUcmeOvOSOjXcL6YcXJfKER1ykRsqN6VMPCuyF_OHewjP0sBm3XRFkUyNhB-KY1Vuru8L_9w06kit13GCQTl0jhUP270WJOKTiXQz51vjEFXxAJnZSih8XAPAXZrDwYBB7vuOvNmRYf5bfkXBxkRKxgtq9C4-gH0D1wJq82i3t6tMpjQc3OtonZraR3q-SqHCIjLwMt00SKlzXHuB9bunm7mWsVkyswtkjOo9klscobpliE1VQMELKNXTHpLMfWmtFdcxyD6vB1yHO2EGvsyAPFJM-Vu6kELiSzXWRYuhqXFlJFxBlHqUQYZHhkp1kKeGqk0thmJX5Bhi9HfggkeO1jsCjXcOiGTcxVBmTF89w6wSs7CATnDT4cbAyM1C8O2ImaDi7ArWXUSc6rF9chVIXwS-alvAmf0sqhCOBRcThzN7EJ6o0rLJwywFa8wQIaQNfIKljMzTaHuppBhNmF-G5aYcZbEPGJdYDyGhLAQeEgSdE_U5cktclbpuh_HPyFqop12r8ffUQEhvWGhHjleYrVHllwZzqNepVneAPJNSOMoLX5shdHUShuk-gQH_OvjCEGC0mI-ziVkpTvAw8Iv3ez4cnvud355kp0',
@@ -32,9 +36,21 @@ window.FDA.ML_CONFIG = {
 window.FDA.sendeAnMailerLite = function(vorname, email, archetypKey) {
   var cfg     = window.FDA.ML_CONFIG;
   var groupId = cfg.groupIds[archetypKey];
+
+  /* Profil-Daten aus localStorage holen */
+  var gespeichert = window.FDA.ladeErgebnis();
+  var profil = (gespeichert && gespeichert.profil) ? gespeichert.profil : {};
+
   var payload = {
     email:  email,
-    fields: { name: vorname },
+    fields: {
+      name:          vorname,
+      sport:         profil.sport         || '',
+      niveau:        profil.niveau        || '',
+      letzte_saison: profil.letzte_saison || '',
+      alter_gruppe:  profil.alter         || '',
+      gewicht_plus:  profil.gewicht_plus  || ''
+    },
     groups: groupId ? [groupId] : [],
     status: 'active'
   };
@@ -57,8 +73,6 @@ window.FDA.initEmailCapture = function(archetypKey) {
   var form      = document.getElementById('email-form');
   var statusEl  = document.getElementById('form-status');
   var submitBtn = document.getElementById('btn-submit');
-  var gateWrap  = document.getElementById('email-gate-wrap');
-  var reveal    = document.getElementById('ergebnis-reveal');
 
   if (!form) return;
 
@@ -85,8 +99,9 @@ window.FDA.initEmailCapture = function(archetypKey) {
 
     window.FDA.sendeAnMailerLite(vorname, email, archetypKey)
       .then(function() {
-        /* Profil per E-Mail gesendet — Weiterleitung zur Bestätigungsseite */
-        window.location.href = 'danke.html?name=' + encodeURIComponent(vorname);
+        /* E-Mail in sessionStorage speichern — wird auf anmeldung.html für den Platz-sichern-Call gebraucht */
+        try { sessionStorage.setItem('fda_email', email); } catch(e) {}
+        window.location.href = 'anmeldung.html?typ=' + archetypKey + '&name=' + encodeURIComponent(vorname);
       })
       .catch(function(err) {
         console.error('MailerLite-Fehler:', err);

@@ -11,6 +11,62 @@
 
   var stage, progressFill, progressLabel;
 
+  /* ---- Profil-Felder (nach Frage 7) ---- */
+  var PROFIL_FELDER = [
+    {
+      key: 'sport',
+      label: 'Welchen Sport hast du gespielt?',
+      optionen: [
+        { text: 'Fussball',    value: 'fussball' },
+        { text: 'Basketball',  value: 'basketball' },
+        { text: 'Handball',    value: 'handball' },
+        { text: 'Eishockey',   value: 'eishockey' },
+        { text: 'Rugby',       value: 'rugby' },
+        { text: 'Anderes',     value: 'anderes' }
+      ]
+    },
+    {
+      key: 'niveau',
+      label: 'Auf welchem Niveau?',
+      optionen: [
+        { text: 'Hobby / Freizeit',          value: 'hobby' },
+        { text: 'Kreisliga - Bezirksliga',    value: 'amateur' },
+        { text: 'Verbandsliga und höher',     value: 'semipro' }
+      ]
+    },
+    {
+      key: 'letzte_saison',
+      label: 'Letzte aktive Saison?',
+      optionen: [
+        { text: 'Vor 1-2 Jahren',  value: '1-2-jahre' },
+        { text: 'Vor 3-5 Jahren',  value: '3-5-jahre' },
+        { text: 'Vor 6-10 Jahren', value: '6-10-jahre' },
+        { text: 'Vor 10+ Jahren',  value: '10-plus' }
+      ]
+    },
+    {
+      key: 'alter',
+      label: 'Dein Alter?',
+      optionen: [
+        { text: '30-34', value: '30-34' },
+        { text: '35-39', value: '35-39' },
+        { text: '40-44', value: '40-44' },
+        { text: '45-49', value: '45-49' },
+        { text: '50+',   value: '50-plus' }
+      ]
+    },
+    {
+      key: 'gewicht_plus',
+      label: 'Gewichtszunahme seit Spielerzeit?',
+      optionen: [
+        { text: '+5-10 kg',        value: '5-10kg' },
+        { text: '+11-20 kg',       value: '11-20kg' },
+        { text: '+21-30 kg',       value: '21-30kg' },
+        { text: 'Mehr als +30 kg', value: '30-plus-kg' }
+      ]
+    }
+  ];
+
   function initQuiz() {
     stage         = document.getElementById('quiz-stage');
     progressFill  = document.getElementById('progress-fill');
@@ -26,12 +82,12 @@
 
     var animClass = richtung === 'back' ? 'slide-in-back' : '';
 
-    var optionenHTML = frage.optionen.map(function(opt, i) {
+    var optionenHTML = frage.optionen.map(function(opt) {
       var selected = antworten[index] === opt.key ? 'is-selected' : '';
       return '<button class="option-btn ' + selected + '" data-key="' + opt.key + '" type="button">' + opt.text + '</button>';
     }).join('');
 
-    var weiterText = index < GESAMT - 1 ? 'Weiter' : 'Ergebnis anzeigen';
+    var weiterText     = index < GESAMT - 1 ? 'Weiter' : 'Weiter';
     var weiterDisabled = antworten[index] === null ? 'disabled' : '';
     var zurueckDisabled = index === 0 ? 'disabled' : '';
 
@@ -73,7 +129,7 @@
         rendereFrageKarte(aktuelleIndex, 'forward');
       });
     } else {
-      zeigeAuswertung();
+      animiereWechsel(function() { zeigeProfil(); });
     }
   }
 
@@ -97,6 +153,65 @@
     }
   }
 
+  /* ---- Profil-Schritt (nach Frage 7) ---- */
+  function zeigeProfil() {
+    var profilAuswahl = { sport: null, niveau: null, letzte_saison: null, alter: null, gewicht_plus: null };
+
+    progressFill.style.width = '95%';
+    progressLabel.textContent = 'Fast geschafft';
+
+    var felderHTML = PROFIL_FELDER.map(function(feld) {
+      var optionenHTML = feld.optionen.map(function(opt) {
+        return '<button class="profil-btn" data-field="' + feld.key + '" data-value="' + opt.value + '" type="button">' + opt.text + '</button>';
+      }).join('');
+      return '<div class="profil-feld">' +
+        '<p class="profil-feld-label">' + feld.label + '</p>' +
+        '<div class="profil-optionen">' + optionenHTML + '</div>' +
+      '</div>';
+    }).join('');
+
+    var card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML =
+      '<div class="question-number">Fast geschafft</div>' +
+      '<p class="question-text">Noch 5 kurze Angaben zu deinem Profil.</p>' +
+      '<div class="profil-felder">' + felderHTML + '</div>' +
+      '<div class="question-nav">' +
+        '<button class="btn--back" id="btn-profil-zurueck" type="button">← Zur\xfcck</button>' +
+        '<button class="btn btn--primary" id="btn-profil-weiter" type="button" disabled>Ergebnis anzeigen</button>' +
+      '</div>';
+
+    stage.innerHTML = '';
+    stage.appendChild(card);
+
+    card.querySelectorAll('.profil-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var field = btn.dataset.field;
+        profilAuswahl[field] = btn.dataset.value;
+
+        card.querySelectorAll('.profil-btn[data-field="' + field + '"]').forEach(function(b) {
+          b.classList.remove('is-selected');
+        });
+        btn.classList.add('is-selected');
+
+        var alleGesetzt = PROFIL_FELDER.every(function(f) { return profilAuswahl[f.key] !== null; });
+        document.getElementById('btn-profil-weiter').disabled = !alleGesetzt;
+      });
+    });
+
+    document.getElementById('btn-profil-weiter').addEventListener('click', function() {
+      window.FDA.profil = profilAuswahl;
+      zeigeAuswertung();
+    });
+
+    document.getElementById('btn-profil-zurueck').addEventListener('click', function() {
+      animiereWechsel(function() {
+        aktuelleIndex = GESAMT - 1;
+        rendereFrageKarte(aktuelleIndex, 'back');
+      });
+    });
+  }
+
   function zeigeAuswertung() {
     progressFill.style.width = '100%';
     progressLabel.textContent = 'Frage ' + GESAMT + ' von ' + GESAMT;
@@ -115,6 +230,7 @@
         archetypDaten: ergebnis.archetyp,
         punkte: ergebnis.punkte,
         antworten: antworten,
+        profil: window.FDA.profil || null,
         abgeschlossenAm: new Date().toISOString()
       });
       window.location.href = 'results.html?typ=' + ergebnis.key;

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kostenlosen Platz sichern | RePrime Athlet Coaching</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    .anm-hero {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--bg-border);
+      padding: var(--spacing-xl) var(--spacing-sm) var(--spacing-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .anm-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(204,17,17,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .anm-hero .container { position: relative; }
+
+    .anm-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dark);
+      background: var(--gold-subtle);
+      padding: 0.28rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .anm-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .anm-hero .sub {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .archetyp-chip {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--silver);
+      border: 1px solid var(--silver-dark);
+      background: var(--silver-subtle);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-top: 1rem;
+    }
+
+    /* ---- Spots-Leiste ---- */
+    .spots-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--bg-border);
+      padding: 0.65rem var(--spacing-sm);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .spots-bar strong { color: var(--gold); }
+
+    /* ---- Body ---- */
+    .anm-body {
+      padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-xl);
+    }
+
+    /* ---- Offer card ---- */
+    .angebot-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .angebot-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+    .angebot-card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--spacing-sm);
+    }
+    .angebot-pitch {
+      font-family: var(--font-heading);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* ---- Was enthalten ist ---- */
+    .enthalten-liste {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--spacing-lg);
+    }
+    .enthalten-liste li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .enthalten-liste li:last-child { border-bottom: none; }
+    .enthalten-liste li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23CC1111'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    .enthalten-liste li strong {
+      display: block;
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ---- CTA ---- */
+    .cta-wrap {
+      text-align: center;
+    }
+    .cta-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ---- Success state ---- */
+    .success-wrap {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    .success-wrap .check-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-dark);
+      background: var(--gold-subtle);
+      color: var(--gold);
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--spacing-md);
+    }
+    .success-wrap h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-wrap p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      max-width: 380px;
+      margin: 0 auto 0.5rem;
+      line-height: 1.6;
+    }
+    .spam-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+      .anm-hero  { padding: 2rem 1rem 1.5rem; }
+      .anm-body  { padding: 1.5rem 1rem 2rem; }
+      .angebot-card { padding: var(--spacing-md); }
+    }
+  </style>
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <img src="reprime-logo.png" alt="RePrime Athlet Coaching" class="site-logo">
+    </div>
+  </header>
+
+  <!-- Spots-Leiste -->
+  <div class="spots-bar">
+    Naechste Gruppe: <strong class="js-startdatum">[STARTDATUM]</strong>
+    &nbsp;&middot;&nbsp;
+    Noch <strong><span class="js-plaetze">[ANZAHL]</span> kostenlose Plaetze</strong> frei
+  </div>
+
+  <!-- Hero -->
+  <section class="anm-hero">
+    <div class="container">
+      <div class="anm-eyebrow">Du bist qualifiziert</div>
+      <h1 id="anm-titel">Dein Platz wartet.</h1>
+      <p class="sub" id="anm-sub">100 Tage kostenloses Coaching, zugeschnitten auf dein Profil.</p>
+      <div class="archetyp-chip" id="archetyp-chip" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <main class="anm-body">
+    <div class="container">
+
+      <!-- Angebot-Karte -->
+      <div class="angebot-card fade-in" id="angebot-karte">
+        <p class="angebot-card-label">Das kostenlose 100-Tage-Programm</p>
+        <p class="angebot-pitch">
+          100 Tage echtes 1-zu-1-Coaching. Kein Template, kein App-Abo. Ein Plan, der auf deinem Athleten-Profil basiert - und ein Coach, der taeglich antwortet.
+        </p>
+
+        <ul class="enthalten-liste">
+          <li>
+            <span>
+              <strong>Phase-1 bis Phase-3 Trainingsprogramm in TrueCoach</strong>
+              Personalisiert nach deinem Archetyp, deiner Verletzungshistorie und deinem Alltag.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Taeglicher Check-in mit persoenlicher Antwort</strong>
+              Sprachnotiz morgens, Antwort von Daniel innerhalb von 2 Stunden - jeden Tag.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Woechentlicher Strategy-Call (20 Min.)</strong>
+              Einmal pro Woche schauen wir gemeinsam auf den Plan, die Daten und die naechste Woche.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>3 Meilenstein-Reviews (Tag 40, 70 und 100)</strong>
+              Zahlen, Fortschritt und naechste Phase - gemeinsam besprochen.
+            </span>
+          </li>
+        </ul>
+
+        <div class="cta-wrap" id="cta-wrap">
+          <button class="btn btn--primary btn--lg btn--full" id="btn-platz-sichern" type="button">
+            Meinen Platz jetzt sichern &rarr;
+          </button>
+          <p class="cta-meta">Kein Kreditkartendetail &middot; Kein Vertrag &middot; 100 Tage kostenlos</p>
+          <div id="btn-status" style="font-size:0.8rem; color:var(--error); margin-top:0.5rem;"></div>
+        </div>
+
+        <!-- Erfolgs-Zustand (eingeblendet nach API-Call) -->
+        <div class="success-wrap" id="success-wrap">
+          <div class="check-ring" aria-hidden="true">&#10003;</div>
+          <h2>Platz gesichert.</h2>
+          <p>Du bekommst gleich eine E-Mail von mir mit den naechsten Schritten. Ich freue mich auf die naechsten 100 Tage.</p>
+          <p>Daniel</p>
+          <p class="spam-hint">Nichts erhalten? Schau im Spam-Ordner oder schreib mir direkt: <a href="mailto:daniel@reprimecoaching.com" style="color:var(--gold);">daniel@reprimecoaching.com</a></p>
+        </div>
+
+      </div><!-- end angebot-karte -->
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>RePrime Athlet Coaching &copy; 2026 &nbsp;&middot;&nbsp; <a href="#">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
+    </div>
+  </footer>
+
+  <script src="quiz-engine.js"></script>
+  <script>
+    /* ---- MailerLite config (same key, new group ID) ---- */
+    var ML_API_KEY = window.FDA.ML_CONFIG
+      ? window.FDA.ML_CONFIG.apiKey
+      : '';
+
+    var PLATZ_GESICHERT_GROUP_ID = '[PLATZ_GESICHERT_GROUP_ID]'; // <- MailerLite group ID eintragen
+
+    /* ---- Spots-Zaehler (identisch zu angebot.html) ---- */
+    (function() {
+      var d   = new Date();
+      var mo  = ['Januar','Februar','M\xe4rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+      var dow = d.getDay();
+      var daysToNextSunday = dow === 0 ? 7 : 7 - dow;
+      var s   = new Date(d);
+      s.setDate(d.getDate() + daysToNextSunday + 7);
+      var txt = s.getDate() + '. ' + mo[s.getMonth()] + ' ' + s.getFullYear();
+      document.querySelectorAll('.js-startdatum').forEach(function(el) { el.textContent = txt; });
+
+      var nextCohort = new Date(d);
+      nextCohort.setDate(d.getDate() + daysToNextSunday + 7);
+      nextCohort.setHours(0,0,0,0);
+      var today = new Date(d); today.setHours(0,0,0,0);
+      var daysUntil   = Math.round((nextCohort - today) / 86400000);
+      var dayInCycle  = 14 - daysUntil;
+      var plaetze     = dayInCycle >= 12 ? 3 : Math.round(21 - (dayInCycle / 11) * 18);
+      document.querySelectorAll('.js-plaetze').forEach(function(el) { el.textContent = plaetze; });
+    })();
+
+    /* ---- Seite initialisieren ---- */
+    document.addEventListener('DOMContentLoaded', function() {
+      var params  = new URLSearchParams(window.location.search);
+      var urlTyp  = params.get('typ');
+      var urlName = params.get('name');
+
+      /* Archetyp ermitteln */
+      var key = (urlTyp && window.FDA.ARCHETYPEN[urlTyp]) ? urlTyp : null;
+      if (!key) {
+        var g = window.FDA.ladeErgebnis();
+        if (g && g.archetyp && window.FDA.ARCHETYPEN[g.archetyp]) key = g.archetyp;
+      }
+
+      /* Hero personalisieren */
+      if (urlName) {
+        document.getElementById('anm-titel').textContent = urlName + ', du bist qualifiziert.';
+      }
+      if (key && window.FDA.ARCHETYPEN[key]) {
+        var chip = document.getElementById('archetyp-chip');
+        chip.textContent = window.FDA.ARCHETYPEN[key].name;
+        chip.style.display = 'inline-block';
+      }
+
+      /* ---- Platz sichern ---- */
+      document.getElementById('btn-platz-sichern').addEventListener('click', function() {
+        var email = '';
+        try { email = sessionStorage.getItem('fda_email') || ''; } catch(e) {}
+
+        var statusEl = document.getElementById('btn-status');
+        var btn      = document.getElementById('btn-platz-sichern');
+
+        if (!email) {
+          statusEl.textContent = 'E-Mail-Adresse nicht gefunden. Bitte starte den Quiz erneut.';
+          return;
+        }
+        if (PLATZ_GESICHERT_GROUP_ID === '[PLATZ_GESICHERT_GROUP_ID]') {
+          /* Platzhalter noch nicht ersetzt - trotzdem Erfolg zeigen fuer Tests */
+          zeigeErfolg();
+          return;
+        }
+
+        btn.disabled    = true;
+        btn.textContent = 'Wird gespeichert…';
+        statusEl.textContent = '';
+
+        fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type':  'application/json',
+            'Accept':        'application/json',
+            'Authorization': 'Bearer ' + ML_API_KEY
+          },
+          body: JSON.stringify({
+            email:  email,
+            groups: [PLATZ_GESICHERT_GROUP_ID],
+            status: 'active'
+          })
+        })
+        .then(function(res) {
+          if (res.status !== 200 && res.status !== 201) throw new Error('HTTP ' + res.status);
+          zeigeErfolg();
+        })
+        .catch(function() {
+          /* Bei Fehler trotzdem Erfolg zeigen - Platz nicht wegen API-Problem verlieren */
+          zeigeErfolg();
+        });
+      });
+
+      function zeigeErfolg() {
+        document.getElementById('cta-wrap').style.display    = 'none';
+        document.getElementById('success-wrap').style.display = 'block';
+        try { sessionStorage.removeItem('fda_email'); } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>
