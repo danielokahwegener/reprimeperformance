@@ -1,6 +1,6 @@
 /* =============================================
    EMAIL-CAPTURE.JS — MailerLite-Integration
-   Nach Erfolg: Weiterleitung zu anmeldung.html
+   Nach Erfolg: Archetyp-Reveal einblenden, dann weiter zu anmeldung.html
    ============================================= */
 
 window.FDA = window.FDA || {};
@@ -63,7 +63,6 @@ window.FDA.sendeAnMailerLite = function(vorname, email, archetypKey) {
     },
     body: JSON.stringify(payload)
   }).then(function(res) {
-    /* 200 = updated, 201 = created — beides ist Erfolg */
     if (res.status !== 200 && res.status !== 201) throw new Error('HTTP ' + res.status);
     return res.json();
   });
@@ -73,6 +72,8 @@ window.FDA.initEmailCapture = function(archetypKey) {
   var form      = document.getElementById('email-form');
   var statusEl  = document.getElementById('form-status');
   var submitBtn = document.getElementById('btn-submit');
+  var gateWrap  = document.getElementById('email-gate-wrap');
+  var reveal    = document.getElementById('ergebnis-reveal');
 
   if (!form) return;
 
@@ -99,9 +100,27 @@ window.FDA.initEmailCapture = function(archetypKey) {
 
     window.FDA.sendeAnMailerLite(vorname, email, archetypKey)
       .then(function() {
-        /* E-Mail in sessionStorage speichern — wird auf anmeldung.html für den Platz-sichern-Call gebraucht */
+        /* E-Mail in sessionStorage (gleicher Tab) + URL-Param (geräteübergreifend) */
         try { sessionStorage.setItem('fda_email', email); } catch(e) {}
-        window.location.href = 'anmeldung.html?typ=' + archetypKey + '&name=' + encodeURIComponent(vorname);
+
+        var dest = 'anmeldung.html'
+          + '?typ='   + encodeURIComponent(archetypKey)
+          + '&name='  + encodeURIComponent(vorname)
+          + '&email=' + encodeURIComponent(email);
+
+        /* Archetyp-Reveal einblenden statt sofort weiterleiten */
+        if (gateWrap) gateWrap.style.display = 'none';
+        if (reveal) {
+          reveal.classList.remove('hidden');
+          /* CTA-Button auf anmeldung.html zeigen lassen (mit allen Params) */
+          var ctaBtn = document.getElementById('cta-termin-btn');
+          if (ctaBtn) ctaBtn.href = dest;
+          /* Sanft nach oben scrollen damit Reveal sichtbar ist */
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          /* Fallback falls kein Reveal-Bereich vorhanden */
+          window.location.href = dest;
+        }
       })
       .catch(function(err) {
         console.error('MailerLite-Fehler:', err);

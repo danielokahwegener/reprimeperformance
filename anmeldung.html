@@ -517,13 +517,44 @@
       var grid  = document.getElementById('fallstudien-grid');
       var label = document.getElementById('fallstudien-label');
       if (!grid) return;
-      if (!key || !window.FDA.ARCHETYPEN[key] || !window.FDA.ARCHETYPEN[key].fallstudien) return;
 
-      var at = window.FDA.ARCHETYPEN[key];
-      var kurzname = at.name.replace('Der ', '').replace('Das ', '');
-      if (label) label.textContent = 'Das sagen andere ' + kurzname + 'n';
+      var fallstudien, labelText;
 
-      grid.innerHTML = at.fallstudien.map(function(fs) {
+      if (key && window.FDA.ARCHETYPEN[key] && window.FDA.ARCHETYPEN[key].fallstudien) {
+        var at = window.FDA.ARCHETYPEN[key];
+        fallstudien = at.fallstudien;
+        var kurzname = at.name.replace('Der ', '').replace('Das ', '');
+        labelText = 'Das sagen andere ' + kurzname + 'n';
+      } else {
+        /* Generischer Fallback wenn kein Archetyp bekannt */
+        fallstudien = [
+          {
+            name: 'Andreas B.',
+            alter: 34,
+            sport: 'ehem. Fu\xdfballer',
+            beruf: 'Gesch\xe4ftsf\xfchrer',
+            ergebnis: '-43 kg \xb7 24 Monate',
+            zitat: 'Sechs Jahre Training, kaum sichtbare Ver\xe4nderung. Ich habe alles richtig gemacht - nur nicht progressiv. 24 Monate sp\xe4ter bin ich an einem Ort, den ich nicht f\xfcr m\xf6glich gehalten hatte.',
+            vorher: '7before-34y95lbs24mon.jpg',
+            nachher: '7after-34y95lbs24mon.jpg'
+          },
+          {
+            name: 'Markus T.',
+            alter: 37,
+            sport: 'ehem. Rugbyspieler',
+            beruf: 'Vertriebsleiter',
+            ergebnis: '-27 kg \xb7 8 Monate',
+            zitat: 'Ich wusste, dass der K\xf6rper noch da ist - unter allem. Was gefehlt hat, war ein System, das nicht zusammenbricht wenn mal eine Woche schwierig wird. 8 Monate ohne Unterbrechung.',
+            vorher: '8before-37y60lbs8mon.jpg',
+            nachher: '8after-37y60lbs8mon.jpg'
+          }
+        ];
+        labelText = 'Das sagen ehemalige Vereinssportler';
+      }
+
+      if (label) label.textContent = labelText;
+
+      grid.innerHTML = fallstudien.map(function(fs) {
         return '<div class="testimonial-card">' +
           '<div class="transformation-imgs">' +
             '<img src="' + fs.vorher + '" alt="' + fs.name + ' Vorher" loading="lazy">' +
@@ -565,8 +596,9 @@
       renderFallstudien(key);
 
       document.getElementById('btn-platz-sichern').addEventListener('click', function() {
-        var email = '';
-        try { email = sessionStorage.getItem('fda_email') || ''; } catch(e) {}
+        /* URL-Param hat Vorrang (geräteübergreifend), sessionStorage als Fallback (gleicher Tab) */
+        var email = params.get('email') || '';
+        if (!email) { try { email = sessionStorage.getItem('fda_email') || ''; } catch(e) {} }
 
         var statusEl = document.getElementById('btn-status');
         var btn      = document.getElementById('btn-platz-sichern');
