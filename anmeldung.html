@@ -470,8 +470,8 @@
         <!-- Erfolgs-Zustand -->
         <div class="success-wrap" id="success-wrap">
           <div class="check-ring" aria-hidden="true">&#10003;</div>
-          <h2>Platz gesichert.</h2>
-          <p>Du bekommst gleich eine E-Mail von mir mit den nächsten Schritten. Ich freue mich auf die nächsten 100 Tage.</p>
+          <h2>Super, deine Teilnahme ist bestätigt.</h2>
+          <p>Du bekommst gleich eine E-Mail von mir mit den nächsten Schritten. Ich freue mich auf unsere Zusammenarbeit</p>
           <p>Daniel</p>
           <p class="spam-hint">Nichts erhalten? Schau im Spam-Ordner oder schreib mir direkt: <a href="mailto:daniel@reprimecoaching.com" style="color:var(--gold);">daniel@reprimecoaching.com</a></p>
         </div>
@@ -489,8 +489,7 @@
 
   <script src="quiz-engine.js"></script>
   <script>
-    var ML_API_KEY = window.FDA.ML_CONFIG ? window.FDA.ML_CONFIG.apiKey : '';
-    var PLATZ_GESICHERT_GROUP_ID = '[PLATZ_GESICHERT_GROUP_ID]'; // <- MailerLite group ID eintragen
+    var WORKER_URL = 'https://reprime-api.reprimecoaching.com';
 
     /* ---- Spots-Zähler ---- */
     (function() {
@@ -597,18 +596,12 @@
       renderFallstudien(key);
 
       document.getElementById('btn-platz-sichern').addEventListener('click', function() {
-        /* URL-Param hat Vorrang (geräteübergreifend), sessionStorage als Fallback (gleicher Tab) */
-        var email = params.get('email') || '';
-        if (!email) { try { email = sessionStorage.getItem('fda_email') || ''; } catch(e) {} }
-
+        var token    = params.get('token') || '';
         var statusEl = document.getElementById('btn-status');
         var btn      = document.getElementById('btn-platz-sichern');
 
-        if (!email) {
-          statusEl.textContent = 'E-Mail-Adresse nicht gefunden. Bitte starte den Quiz erneut.';
-          return;
-        }
-        if (PLATZ_GESICHERT_GROUP_ID === '[PLATZ_GESICHERT_GROUP_ID]') {
+        if (!token) {
+          /* No token — show success anyway, subscriber already in MailerLite from results.html */
           zeigeErfolg();
           return;
         }
@@ -617,26 +610,24 @@
         btn.textContent = 'Wird gespeichert…';
         statusEl.textContent = '';
 
-        fetch('https://connect.mailerlite.com/api/subscribers', {
+        fetch(WORKER_URL + '/api/platz-sichern', {
           method: 'POST',
-          headers: {
-            'Content-Type':  'application/json',
-            'Accept':        'application/json',
-            'Authorization': 'Bearer ' + ML_API_KEY
-          },
-          body: JSON.stringify({ email: email, groups: [PLATZ_GESICHERT_GROUP_ID], status: 'active' })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token })
         })
         .then(function(res) {
-          if (res.status !== 200 && res.status !== 201) throw new Error('HTTP ' + res.status);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
           zeigeErfolg();
         })
-        .catch(function() { zeigeErfolg(); });
+        .catch(function() {
+          /* Show success regardless — subscriber is already in MailerLite */
+          zeigeErfolg();
+        });
       });
 
       function zeigeErfolg() {
         document.getElementById('cta-wrap').style.display     = 'none';
         document.getElementById('success-wrap').style.display = 'block';
-        try { sessionStorage.removeItem('fda_email'); } catch(e) {}
       }
     });
   </script>

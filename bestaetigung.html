@@ -300,38 +300,26 @@
   <script>
     /*
       BOOKING STOP TRIGGER
-      ─────────────────────────────────────────────────────────────────
-      When Calendly redirects here after booking it appends
-      ?email={invitee.email} to the URL. This script reads that value
-      and adds the subscriber to the "Termin gebucht" MailerLite group,
-      which tells MailerLite automations to stop sending nurture emails.
+      Calendly redirects here with ?email={invitee.email} after booking.
+      We forward the email to the Worker which calls MailerLite server-side
+      (API key never exposed in browser).
 
       SETUP REQUIRED:
-      1. In MailerLite → Subscribers → Groups → create "Termin gebucht"
-         Copy the group ID and paste it below.
-      2. In Calendly → Event types → 100tage → Edit → Booking page →
-         Confirmation page → "Redirect to an external website"
-         Set URL to: https://reprimecoaching.com/bestaetigung.html?email={invitee.email}
-         (Calendly replaces {invitee.email} automatically)
-      3. In each of the 5 MailerLite automations → add a condition
-         "Stop if subscriber is in group 'Termin gebucht'"
-      ─────────────────────────────────────────────────────────────────
+      1. Deploy the Worker (see worker/SETUP.md)
+      2. In MailerLite create "Termin gebucht" group, set its ID as
+         GEBUCHT_GROUP_ID secret in the Worker: wrangler secret put GEBUCHT_GROUP_ID
+      3. In Calendly set redirect URL to:
+         https://reprimecoaching.com/bestaetigung.html?email={invitee.email}
+      4. In each MailerLite automation add "Stop if in group Termin gebucht"
     */
     (function() {
-      var GEBUCHT_GROUP_ID = '[GEBUCHT_GROUP_ID]'; // ← paste MailerLite group ID here
-      var API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiZWUyOWYyZDM3OTdjMGU4OWJlZDRkNmYxYjljOTJlN2FjODY1MjdmOWRlZTY4YzI1MDMyNDRkOGY1MTRlYzczODQ5MWNhZjg1OTNjMWJiNmIiLCJpYXQiOjE3Nzc2NDgyODUuODQ4NzY5LCJuYmYiOjE3Nzc2NDgyODUuODQ4Nzc0LCJleHAiOjQ5MzMzMjE4ODUuODM0Mjc2LCJzdWIiOiIyMzI3NzU4Iiwic2NvcGVzIjpbXX0.fj1Tk9I81HPcT2PQP2pjSiiy2BMmpX-hunHVw2guNpDibthoQw9DPQNovfGB_mpc6GPqXsYSOUcmeOvOSOjXcL6YcXJfKER1ykRsqN6VMPCuyF_OHewjP0sBm3XRFkUyNhB-KY1Vuru8L_9w06kit13GCQTl0jhUP270WJOKTiXQz51vjEFXxAJnZSih8XAPAXZrDwYBB7vuOvNmRYf5bfkXBxkRKxgtq9C4-gH0D1wJq82i3t6tMpjQc3OtonZraR3q-SqHCIjLwMt00SKlzXHuB9bunm7mWsVkyswtkjOo9klscobpliE1VQMELKNXTHpLMfWmtFdcxyD6vB1yHO2EGvsyAPFJM-Vu6kELiSzXWRYuhqXFlJFxBlHqUQYZHhkp1kKeGqk0thmJX5Bhi9HfggkeO1jsCjXcOiGTcxVBmTF89w6wSs7CATnDT4cbAyM1C8O2ImaDi7ArWXUSc6rF9chVIXwS-alvAmf0sqhCOBRcThzN7EJ6o0rLJwywFa8wQIaQNfIKljMzTaHuppBhNmF-G5aYcZbEPGJdYDyGhLAQeEgSdE_U5cktclbpuh_HPyFqop12r8ffUQEhvWGhHjleYrVHllwZzqNepVneAPJNSOMoLX5shdHUShuk-gQH_OvjCEGC0mI-ziVkpTvAw8Iv3ez4cnvud355kp0';
-
       var email = new URLSearchParams(window.location.search).get('email');
-      if (!email || GEBUCHT_GROUP_ID === '186705133477824097') return;
+      if (!email) return;
 
-      fetch('https://connect.mailerlite.com/api/subscribers', {
+      fetch('https://reprime-api.reprimecoaching.com/api/booking-stop', {
         method: 'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'Accept':        'application/json',
-          'Authorization': 'Bearer ' + API_KEY
-        },
-        body: JSON.stringify({ email: email, groups: [GEBUCHT_GROUP_ID], status: 'active' })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
       }).catch(function() {}); // silent — booking already confirmed regardless
     })();
   </script>
