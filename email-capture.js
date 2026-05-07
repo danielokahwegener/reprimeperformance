@@ -1,70 +1,25 @@
 /* =============================================
-   EMAIL-CAPTURE.JS — MailerLite-Integration
-   Nach Erfolg: Archetyp-Reveal einblenden, dann weiter zu anmeldung.html
+   EMAIL-CAPTURE.JS — Worker-backed MailerLite integration
+   After success: show archetype reveal, then redirect to anmeldung.html with token
    ============================================= */
 
 window.FDA = window.FDA || {};
 
-/*
-  KONFIGURATION — MailerLite-Zugangsdaten eintragen:
-
-  apiKey:
-    MailerLite → Integrations → API → API Tokens → Create new token
-    Den erzeugten Token hier eintragen.
-
-  groupIds:
-    MailerLite → Subscribers → Groups → eine Gruppe pro Archetyp anlegen
-    (z.B. "Vollgasathlet", "Teamkind" usw.)
-    Jede Gruppe anklicken → die Zahl am Ende der URL ist die Group-ID.
-    Diese Gruppen werden als Trigger für die jeweilige Automatisierung genutzt.
-
-  CUSTOM FIELDS (müssen in MailerLite angelegt werden):
-    MailerLite → Subscribers → Fields → Add field (Type: Text) für:
-    sport, niveau, letzte_saison, alter_gruppe, gewicht_plus
-*/
-window.FDA.ML_CONFIG = {
-  apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiZWUyOWYyZDM3OTdjMGU4OWJlZDRkNmYxYjljOTJlN2FjODY1MjdmOWRlZTY4YzI1MDMyNDRkOGY1MTRlYzczODQ5MWNhZjg1OTNjMWJiNmIiLCJpYXQiOjE3Nzc2NDgyODUuODQ4NzY5LCJuYmYiOjE3Nzc2NDgyODUuODQ4Nzc0LCJleHAiOjQ5MzMzMjE4ODUuODM0Mjc2LCJzdWIiOiIyMzI3NzU4Iiwic2NvcGVzIjpbXX0.fj1Tk9I81HPcT2PQP2pjSiiy2BMmpX-hunHVw2guNpDibthoQw9DPQNovfGB_mpc6GPqXsYSOUcmeOvOSOjXcL6YcXJfKER1ykRsqN6VMPCuyF_OHewjP0sBm3XRFkUyNhB-KY1Vuru8L_9w06kit13GCQTl0jhUP270WJOKTiXQz51vjEFXxAJnZSih8XAPAXZrDwYBB7vuOvNmRYf5bfkXBxkRKxgtq9C4-gH0D1wJq82i3t6tMpjQc3OtonZraR3q-SqHCIjLwMt00SKlzXHuB9bunm7mWsVkyswtkjOo9klscobpliE1VQMELKNXTHpLMfWmtFdcxyD6vB1yHO2EGvsyAPFJM-Vu6kELiSzXWRYuhqXFlJFxBlHqUQYZHhkp1kKeGqk0thmJX5Bhi9HfggkeO1jsCjXcOiGTcxVBmTF89w6wSs7CATnDT4cbAyM1C8O2ImaDi7ArWXUSc6rF9chVIXwS-alvAmf0sqhCOBRcThzN7EJ6o0rLJwywFa8wQIaQNfIKljMzTaHuppBhNmF-G5aYcZbEPGJdYDyGhLAQeEgSdE_U5cktclbpuh_HPyFqop12r8ffUQEhvWGhHjleYrVHllwZzqNepVneAPJNSOMoLX5shdHUShuk-gQH_OvjCEGC0mI-ziVkpTvAw8Iv3ez4cnvud355kp0',
-  groupIds: {
-    V: '186277911229105388',
-    T: '186277929446016594',
-    R: '186277945189336521',
-    M: '186277961974940789',
-    L: '186277978308609039'
-  }
-};
+/* Worker URL — update this after deploying the Cloudflare Worker */
+window.FDA.WORKER_URL = 'https://reprime-api.reprimecoaching.com';
 
 window.FDA.sendeAnMailerLite = function(vorname, email, archetypKey) {
-  var cfg     = window.FDA.ML_CONFIG;
-  var groupId = cfg.groupIds[archetypKey];
-
-  /* Profil-Daten aus localStorage holen */
   var gespeichert = window.FDA.ladeErgebnis();
   var profil = (gespeichert && gespeichert.profil) ? gespeichert.profil : {};
 
-  var payload = {
-    email:  email,
-    fields: {
-      name:          vorname,
-      sport:         profil.sport         || '',
-      niveau:        profil.niveau        || '',
-      letzte_saison: profil.letzte_saison || '',
-      alter_gruppe:  profil.alter         || '',
-      gewicht_plus:  profil.gewicht_plus  || ''
-    },
-    groups: groupId ? [groupId] : [],
-    status: 'active'
-  };
-  return fetch('https://connect.mailerlite.com/api/subscribers', {
+  return fetch(window.FDA.WORKER_URL + '/api/subscribe', {
     method: 'POST',
-    headers: {
-      'Content-Type':  'application/json',
-      'Accept':        'application/json',
-      'Authorization': 'Bearer ' + cfg.apiKey
-    },
-    body: JSON.stringify(payload)
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ vorname: vorname, email: email, archetypKey: archetypKey, profil: profil })
   }).then(function(res) {
-    if (res.status !== 200 && res.status !== 201) throw new Error('HTTP ' + res.status);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
+    /* Returns { token: "uuid" } */
   });
 };
 
@@ -77,7 +32,6 @@ window.FDA.initEmailCapture = function(archetypKey) {
 
   if (!form) return;
 
-  /* Live E-Mail-Validierung */
   var emailInput = document.getElementById('email');
   emailInput.addEventListener('blur', function() {
     var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
@@ -99,31 +53,27 @@ window.FDA.initEmailCapture = function(archetypKey) {
     statusEl.textContent  = '';
 
     window.FDA.sendeAnMailerLite(vorname, email, archetypKey)
-      .then(function() {
-        /* E-Mail in sessionStorage (gleicher Tab) + URL-Param (geräteübergreifend) */
-        try { sessionStorage.setItem('fda_email', email); } catch(e) {}
+      .then(function(data) {
+        var token = (data && data.token) ? data.token : '';
 
         var dest = 'anmeldung.html'
           + '?typ='   + encodeURIComponent(archetypKey)
           + '&name='  + encodeURIComponent(vorname)
-          + '&email=' + encodeURIComponent(email);
+          + '&token=' + encodeURIComponent(token);
 
-        /* Archetyp-Reveal einblenden statt sofort weiterleiten */
+        /* Show archetype reveal before redirecting */
         if (gateWrap) gateWrap.style.display = 'none';
         if (reveal) {
           reveal.classList.remove('hidden');
-          /* CTA-Button auf anmeldung.html zeigen lassen (mit allen Params) */
           var ctaBtn = document.getElementById('cta-termin-btn');
           if (ctaBtn) ctaBtn.href = dest;
-          /* Sanft nach oben scrollen damit Reveal sichtbar ist */
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          /* Fallback falls kein Reveal-Bereich vorhanden */
           window.location.href = dest;
         }
       })
       .catch(function(err) {
-        console.error('MailerLite-Fehler:', err);
+        console.error('Worker-Fehler:', err);
         statusEl.textContent  = 'Etwas ist schiefgelaufen. Bitte versuche es noch einmal.';
         statusEl.style.color  = 'var(--error)';
         statusEl.style.fontSize  = '0.8rem';
