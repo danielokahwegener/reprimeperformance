@@ -572,26 +572,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* === How It Works 2-col Layout === */
-    .ablauf-layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 4rem;
-      align-items: start;
-    }
-    .ablauf-layout .steps-grid {
-      grid-template-columns: 1fr;
-      gap: 1.75rem;
-    }
-    .ablauf-visual img {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      object-position: top;
-      border-radius: var(--radius-lg);
-      display: block;
-    }
-
     /* === Program Results Strip === */
     .results-strip {
       display: grid;
@@ -644,9 +624,6 @@
       .pain-layout { grid-template-columns: 1fr; }
       .pain-visual { display: none; }
       .case-studies-row { grid-template-columns: 1fr; }
-      .ablauf-layout { grid-template-columns: 1fr; }
-      .ablauf-layout .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .ablauf-visual { display: none; }
       .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .benefit-grid { grid-template-columns: 1fr 1fr; }
@@ -767,7 +744,7 @@
         </div>
         <div class="pain-visual">
           <img src="vorher-1.jpg" alt="Ehemaliger Vereinssportler" loading="lazy">
-          <p class="pain-visual-caption">Vor dem Comeback</p>
+          <p class="pain-visual-caption">Ohne unsere Prinzipien</p>
         </div>
       </div>
     </div>
@@ -792,9 +769,9 @@
   <!-- ===== SERVICE OFFER ===== -->
   <section class="section" id="programm">
     <div class="container">
-      <div class="section-label">Das Programm</div>
-      <h2 style="margin-bottom:0.75rem;">Was bekommst du?</h2>
-      <p style="color:var(--text-secondary); margin-bottom:var(--spacing-lg); max-width:500px;">Jede Komponente des Programms l&ouml;st ein konkretes Problem. Hier siehst du welches.</p>
+      <div class="section-label text-center">Das Programm</div>
+      <h2 style="margin-bottom:0.75rem; text-align:center;">Was bekommst du?</h2>
+      <p style="color:var(--text-secondary); margin-bottom:var(--spacing-lg); max-width:500px; text-align:center; margin-left:auto; margin-right:auto;">Jede Komponente des Programms l&ouml;st ein konkretes Problem. Hier siehst du welches.</p>
       <div class="benefit-grid">
         <div class="benefit-card">
           <span class="benefit-card__feature">Personalisiertes Trainingsprogramm</span>
@@ -822,7 +799,7 @@
           <p class="benefit-card__copy">100 Tage echtes 1-zu-1-Coaching ohne Kreditkarte und ohne automatische Abbuchungen. An Tag 100 entscheidest du, wenn du die Ergebnisse siehst.</p>
         </div>
       </div>
-      <p class="results-section-label">Nach 100 Tagen. Echte Klienten.</p>
+      <p class="results-section-label">Mithilfe des Coachings. Echte Klienten.</p>
       <div class="results-strip">
         <div class="results-strip-item">
           <img src="nachher-1.jpg" alt="Ergebnis nach 100 Tagen" loading="lazy">
@@ -845,31 +822,24 @@
 
   <!-- ===== HOW IT WORKS ===== -->
   <section class="section section--surface" id="ablauf">
-    <div class="container container--wide">
-      <div class="ablauf-layout">
-        <div>
-          <div class="section-label">Wie es funktioniert</div>
-          <h2 style="margin-bottom:var(--spacing-lg);">So funktioniert es.</h2>
-          <div class="steps-grid">
-            <div class="step-item">
-              <div class="step-number">01</div>
-              <p class="step-title">Quiz machen und Typ herausfinden</p>
-              <p class="step-body">7 Fragen, 2 Minuten. Du bekommst dein pers&ouml;nliches Athleten-Profil sofort. Mit einem konkreten ersten Schritt f&uuml;r deinen Typ.</p>
-            </div>
-            <div class="step-item">
-              <div class="step-number">02</div>
-              <p class="step-title">Sofort umsetzbare L&ouml;sung erhalten</p>
-              <p class="step-body">Basierend auf deinem Athleten-Profil bekommst du eine gezielte L&ouml;sung f&uuml;r dein Kernproblem. Keine allgemeinen Tipps. Eine direkte Antwort auf dein spezifisches Muster.</p>
-            </div>
-            <div class="step-item">
-              <div class="step-number">03</div>
-              <p class="step-title">Termin buchen</p>
-              <p class="step-body">Schau in einem kostenlosen Gespr&auml;ch, ob du dich f&uuml;r unseren 100-Tage-Gratis-Test qualifizierst. Kein Verkaufsgespr&auml;ch. Ehrliche Analyse.</p>
-            </div>
-          </div>
+    <div class="container">
+      <div class="section-label">Wie es funktioniert</div>
+      <h2 style="margin-bottom:var(--spacing-lg);">So funktioniert es.</h2>
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-number">01</div>
+          <p class="step-title">Quiz machen und Typ herausfinden</p>
+          <p class="step-body">7 Fragen, 2 Minuten. Du bekommst dein pers&ouml;nliches Athleten-Profil sofort. Mit einem konkreten ersten Schritt f&uuml;r deinen Typ.</p>
         </div>
-        <div class="ablauf-visual">
-          <img src="coach-4.jpg" alt="Daniel Wegener" loading="lazy">
+        <div class="step-item">
+          <div class="step-number">02</div>
+          <p class="step-title">Sofort umsetzbare L&ouml;sung erhalten</p>
+          <p class="step-body">Basierend auf deinem Athleten-Profil bekommst du eine gezielte L&ouml;sung f&uuml;r dein Kernproblem. Keine allgemeinen Tipps. Eine direkte Antwort auf dein spezifisches Muster.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">03</div>
+          <p class="step-title">Termin buchen</p>
+          <p class="step-body">Schau in einem kostenlosen Gespr&auml;ch, ob du dich f&uuml;r unseren 100-Tage-Gratis-Test qualifizierst. Kein Verkaufsgespr&auml;ch. Ehrliche Analyse.</p>
         </div>
       </div>
     </div>
