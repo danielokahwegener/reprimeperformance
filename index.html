@@ -204,10 +204,15 @@
     /* === Archetype Panels === */
     .archetype-panel { display: none; }
     .archetype-panel.active {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .case-studies-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      animation: fadeIn 0.3s ease;
+      gap: 1.5rem;
     }
     .archetype-tagline {
       font-size: 1.05rem;
@@ -258,9 +263,7 @@
       border: 1px solid var(--bg-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      margin-bottom: 1.25rem;
     }
-    .case-study-card:last-child { margin-bottom: 0; }
     .trans-pair {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -472,7 +475,7 @@
       .main-nav { display: none; }
       .hamburger { display: flex; }
       .pain-grid { grid-template-columns: 1fr; }
-      .archetype-panel.active { grid-template-columns: 1fr; }
+      .case-studies-row { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .benefit-grid { grid-template-columns: 1fr 1fr; }
@@ -775,7 +778,7 @@
             spHtml +
             '<p class="archetype-hook">' + a.hookZitat + '</p>' +
           '</div>' +
-          '<div>' + csHtml + '</div>';
+          '<div class="case-studies-row">' + csHtml + '</div>';
         panelsEl.appendChild(panel);
       });
 
