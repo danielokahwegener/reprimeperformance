@@ -556,12 +556,17 @@
       gap: 4rem;
       align-items: start;
     }
-    .pain-visual img {
+    .pain-visual-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .pain-visual-grid img {
       width: 100%;
       aspect-ratio: 3/4;
       object-fit: cover;
       object-position: top;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-md);
       display: block;
     }
     .pain-visual-caption {
@@ -621,8 +626,8 @@
       .main-nav { display: none; }
       .hamburger { display: flex; }
       .pain-grid { grid-template-columns: 1fr; }
-      .pain-layout { grid-template-columns: 1fr; }
-      .pain-visual { display: none; }
+      .pain-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .pain-visual-grid img { max-height: 160px; }
       .case-studies-row { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -745,8 +750,12 @@
           </div>
         </div>
         <div class="pain-visual">
-          <img src="vorher-1.jpg" alt="Ehemaliger Vereinssportler" loading="lazy">
-          <p class="pain-visual-caption">Ohne unsere Prinzipien</p>
+          <div class="pain-visual-grid">
+            <img src="vorher-1.jpg" alt="Ehemaliger Vereinssportler" loading="lazy">
+            <img src="vorher-2.jpg" alt="Ehemaliger Vereinssportler" loading="lazy">
+            <img src="vorher-3.jpg" alt="Ehemaliger Vereinssportler" loading="lazy">
+          </div>
+          <p class="pain-visual-caption">Vor dem Comeback</p>
         </div>
       </div>
     </div>
