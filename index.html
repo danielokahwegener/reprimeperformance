@@ -677,7 +677,8 @@
       .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .benefit-grid { grid-template-columns: 1fr 1fr; }
-      .results-strip { grid-template-columns: 1fr 1fr; }
+      .results-strip { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .results-strip-item img { max-height: 160px; }
       .hero-proof { max-width: 100%; gap: 0.5rem; }
       .hero-proof-imgs img { max-height: 90px; }
       .hero { padding: 2rem 1rem; }
@@ -687,7 +688,7 @@
     }
     @media (max-width: 480px) {
       .benefit-grid { grid-template-columns: 1fr; }
-      .results-strip { grid-template-columns: 1fr; }
+      .results-strip { grid-template-columns: repeat(3, 1fr); }
       .hero { padding: 1.75rem 0.875rem; }
       .hero-proof { gap: 0.35rem; margin-top: 1.5rem; }
       .hero-proof-imgs img { max-height: 72px; }
