@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kostenlosen Platz sichern | RePrime Coaching</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    .anm-hero {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--bg-border);
+      padding: var(--spacing-xl) var(--spacing-sm) var(--spacing-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .anm-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 0%, rgba(204,17,17,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .anm-hero .container { position: relative; }
+
+    .anm-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dark);
+      background: var(--gold-subtle);
+      padding: 0.28rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .anm-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .anm-hero .sub {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ---- Spots-Leiste ---- */
+    .spots-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--bg-border);
+      padding: 0.65rem var(--spacing-sm);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .spots-bar strong { color: var(--gold); }
+
+    /* ---- Body ---- */
+    .anm-body {
+      padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-xl);
+    }
+
+    /* ---- Coach-Karte ---- */
+    .coach-karte {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md) var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .coach-karte-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .coach-karte h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--text-primary);
+    }
+    .coach-karte p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ---- Offer card ---- */
+    .angebot-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-xl);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .angebot-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+    .angebot-card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--spacing-sm);
+    }
+    .angebot-pitch {
+      font-family: var(--font-heading);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* ---- Was enthalten ist ---- */
+    .enthalten-liste {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--spacing-lg);
+    }
+    .enthalten-liste li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .enthalten-liste li:last-child { border-bottom: none; }
+    .enthalten-liste li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23CC1111'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    .enthalten-liste li strong {
+      display: block;
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ---- CTA ---- */
+    .cta-wrap { text-align: center; }
+    .cta-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ---- Success state ---- */
+    .success-wrap {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-lg) var(--spacing-md);
+    }
+    .success-wrap .check-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-dark);
+      background: var(--gold-subtle);
+      color: var(--gold);
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--spacing-md);
+    }
+    .success-wrap h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .success-wrap p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      max-width: 380px;
+      margin: 0 auto 0.5rem;
+      line-height: 1.6;
+    }
+    .spam-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ---- Coach-Karussell ---- */
+    .coach-carousel {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      width: 140px;
+      flex-shrink: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--bg-border);
+    }
+    .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.8s ease; }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--bg-border);
+      border: 1px solid var(--text-muted);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      flex-shrink: 0;
+    }
+    .carousel-dot:hover { border-color: var(--gold); }
+    .carousel-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.25); }
+
+    /* ---- Archetype Tabs ---- */
+    .archetype-tabs {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--bg-border);
+      margin-bottom: 2.5rem;
+    }
+    .archetype-tabs::-webkit-scrollbar { display: none; }
+    .archetype-tab-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: -1px;
+      white-space: nowrap;
+    }
+    .archetype-tab-btn:hover { color: var(--text-primary); }
+    .archetype-tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ---- Archetype Panels ---- */
+    .archetype-panel { display: none; }
+    .archetype-panel.active {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .case-studies-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .archetype-tagline {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 1.25rem;
+    }
+    .archetype-pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      list-style: none;
+      padding: 0;
+    }
+    .archetype-pain-list li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    .archetype-pain-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .archetype-hook {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--gold);
+      border-left: 2px solid var(--gold-dark);
+      padding-left: 1rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ---- Case Study Cards ---- */
+    .case-study-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .trans-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .trans-pair-item { position: relative; }
+    .trans-pair-item img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      max-height: 220px;
+    }
+    .trans-label {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.55);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+    .case-study-info { padding: 1rem; }
+    .case-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+    .case-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+    .result-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+      background: var(--gold-subtle);
+      color: var(--gold);
+      border: 1px solid var(--gold-dark);
+    }
+    .case-quote {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ---- Ergebnisse-Block ---- */
+    .ergebnisse-block {
+      margin-bottom: var(--spacing-lg);
+    }
+    .ergebnisse-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--silver-dark);
+      margin-bottom: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .anm-hero    { padding: 2rem 1rem 1.5rem; }
+      .anm-body    { padding: 1.5rem 1rem 2rem; }
+      .angebot-card { padding: var(--spacing-md); }
+      .coach-karte  { padding: var(--spacing-sm) var(--spacing-md); }
+      .coach-carousel { width: 140px; }
+      .case-studies-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .coach-karte { flex-direction: column; align-items: center; text-align: center; }
+      .coach-carousel { width: 200px; aspect-ratio: 3/4; }
+    }
+  </style>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <img src="reprime-logo.png" alt="RePrime Coaching" class="site-logo">
+    </div>
+  </header>
+
+  <!-- Spots-Leiste -->
+  <div class="spots-bar">
+    N&auml;chste Gruppe: <strong class="js-startdatum">[STARTDATUM]</strong>
+    &nbsp;&middot;&nbsp;
+    Noch <strong><span class="js-plaetze">[ANZAHL]</span> kostenlose Pl&auml;tze</strong> frei
+  </div>
+
+  <!-- Hero -->
+  <section class="anm-hero">
+    <div class="container">
+      <div class="anm-eyebrow">F&uuml;r ehemalige Vereinssportler</div>
+      <h1>Dein Platz wartet.</h1>
+      <p class="sub">100 Tage kostenlos testen. Dein personalisierter Online-Coaching-Service f&uuml;r ehemalige Vereinssportler.</p>
+      <div style="margin-top:1.75rem;">
+        <button class="btn btn--primary btn--lg" id="btn-startklar-hero" type="button">Ich bin startklar &rarr;</button>
+        <p style="font-size:0.72rem; color:rgba(248,246,242,0.4); margin-top:0.6rem; letter-spacing:0.02em;">Kein Kreditkartendetail &middot; 100 Tage kostenlos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body -->
+  <main class="anm-body">
+    <div class="container">
+
+      <!-- Ergebnisse (Archetyp-Tabs) -->
+      <div class="ergebnisse-block fade-in">
+        <p class="ergebnisse-label">Das sagen ehemalige Vereinssportler</p>
+        <div class="archetype-tabs" id="archetypenTabs" role="tablist"></div>
+        <div id="archetypenPanels"></div>
+      </div>
+
+      <!-- Wer ist Daniel -->
+      <div class="coach-karte fade-in">
+        <div>
+          <div class="coach-carousel" id="coachCarouselAnm">
+            <div class="carousel-slide active"><img src="coach-1.jpg" alt="Daniel" loading="lazy"></div>
+            <div class="carousel-slide"><img src="coach-2.jpg" alt="Daniel" loading="lazy"></div>
+            <div class="carousel-slide"><img src="coach-3.jpg" alt="Daniel" loading="lazy"></div>
+            <div class="carousel-slide"><img src="coach-4.jpg" alt="Daniel" loading="lazy"></div>
+          </div>
+          <div class="carousel-dots" id="carouselDotsAnm"></div>
+        </div>
+        <div>
+          <p class="coach-karte-label">Dein Coach</p>
+          <h3>Daniel Wegener</h3>
+          <p>Ich helfe ehemaligen Sportlern wie mir, wieder in Form zu kommen. Kurz zu mir: Mit 16 habe ich ein Basketballstipendium f&uuml;r die USA erhalten und dort in der High School sowie im College gespielt. Danach bin ich nach England gezogen und habe dort meinen Master abgeschlossen, w&auml;hrend ich professionell f&uuml;r die Essex Leopards gespielt habe. Anschlie&szlig;end arbeitete ich im Private Equity in London, mit anspruchsvollen Arbeitszeiten und wenig Zeit f&uuml;r alles andere au&szlig;er Sport.</p>
+        </div>
+      </div>
+
+      <!-- Angebot-Karte -->
+      <div class="angebot-card fade-in" id="angebot-karte">
+        <p class="angebot-card-label">Dein kostenloser 100-Tage-Test</p>
+        <p class="angebot-pitch">
+          100 Tage kostenlos testen, was es bedeutet, ein personalisiertes Online-Coaching zu haben, das speziell f&uuml;r ehemalige Vereinssportler gemacht ist. Kein Template. Kein App-Abo. Echter 1-zu-1 Support, der dich t&auml;glich unterst&uuml;tzt.
+        </p>
+
+        <ul class="enthalten-liste">
+          <li>
+            <span>
+              <strong>Kein R&auml;tselraten mehr. Du wei&szlig;t immer genau, was zu tun ist.</strong>
+              Dank deinem personalisierten Trainingsprogramm hast du jede Woche einen klaren Plan, der auf deinen Sportler-Typ, deiner sportlichen Laufbahn und deinen Alltag zugeschnitten ist.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Kein R&uuml;ckschlag kann dich mehr aus dem Rhythmus bringen.</strong>
+              Im w&ouml;chentlichen Strategy-Call schauen wir gemeinsam auf Plan, Zahlen und die n&auml;chste Woche. Was nicht funktioniert, wird angepasst bevor es zum Problem wird.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Die Struktur, die dir seit deinem letzten Spiel fehlt, ist zur&uuml;ck.</strong>
+              Dank des t&auml;glichen Check-ins mit deinem Coach wei&szlig;t du jeden Morgen, dass jemand mitverfolgt, wie es l&auml;uft. Sprachnotizen, FaceTimes und Telefonate. Wir kommunizieren so, wie es dir am besten passt. T&auml;glich.
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Du siehst schwarz auf wei&szlig;, wie weit du wirklich gekommen bist.</strong>
+              An Tag 40, 70 und 100 sitzen wir zusammen und schauen auf deine Ergebnisse, deinen Fortschritt und was als N&auml;chstes kommt. Keine Vermutungen. Nur Daten.
+            </span>
+          </li>
+        </ul>
+
+        <div class="cta-wrap" id="cta-wrap">
+          <button class="btn btn--primary btn--lg btn--full" id="btn-platz-sichern" type="button">
+            Ich bin startklar &rarr;
+          </button>
+          <p class="cta-meta">Kick-off Call buchen &middot; Kein Kreditkartendetail &middot; 100 Tage kostenlos</p>
+          <div id="btn-status" style="font-size:0.8rem; color:var(--error); margin-top:0.5rem;"></div>
+        </div>
+
+        <!-- Erfolgs-Zustand -->
+        <div class="success-wrap" id="success-wrap">
+          <div class="check-ring" aria-hidden="true">&#10003;</div>
+          <h2>Super, deine Teilnahme ist best&auml;tigt.</h2>
+          <p>Du bekommst gleich eine E-Mail von mir mit den n&auml;chsten Schritten. Ich freue mich auf unsere Zusammenarbeit</p>
+          <p class="spam-hint">Nichts erhalten? Schau im Spam-Ordner oder schreib mir direkt: <a href="mailto:daniel@reprimecoaching.com" style="color:var(--gold);">daniel@reprimecoaching.com</a></p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>RePrime Coaching &copy; 2026 &nbsp;&middot;&nbsp; <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
+    </div>
+  </footer>
+
+  <script src="quiz-engine.js"></script>
+  <script>
+    var KICKOFF_CALENDLY_URL = 'https://calendly.com/reprimecoaching/100tage';
+
+    /* ---- Spots-Z&auml;hler ---- */
+    (function() {
+      var d   = new Date();
+      var mo  = ['Januar','Februar','M\xe4rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+      var dow = d.getDay();
+      var daysToNextSunday = dow === 0 ? 7 : 7 - dow;
+      var s   = new Date(d);
+      s.setDate(d.getDate() + daysToNextSunday + 7);
+      document.querySelectorAll('.js-startdatum').forEach(function(el) {
+        el.textContent = s.getDate() + '. ' + mo[s.getMonth()] + ' ' + s.getFullYear();
+      });
+      var nextCohort = new Date(d);
+      nextCohort.setDate(d.getDate() + daysToNextSunday + 7);
+      nextCohort.setHours(0,0,0,0);
+      var today = new Date(d); today.setHours(0,0,0,0);
+      var daysUntil  = Math.round((nextCohort - today) / 86400000);
+      var dayInCycle = 14 - daysUntil;
+      var plaetze    = dayInCycle >= 12 ? 3 : Math.round(21 - (dayInCycle / 11) * 18);
+      document.querySelectorAll('.js-plaetze').forEach(function(el) { el.textContent = plaetze; });
+    })();
+
+    /* ---- Archetyp-Tabs aus quiz-engine.js-Daten aufbauen ---- */
+    (function() {
+      var ORDER  = ['V', 'T', 'R', 'M', 'L'];
+      var LABELS = ['Vollgassportler', 'Teamkind', 'Rost-Veteran', 'Metabolismus-Schock', 'Leistungsblockierte'];
+      var tabsEl   = document.getElementById('archetypenTabs');
+      var panelsEl = document.getElementById('archetypenPanels');
+
+      ORDER.forEach(function(key, i) {
+        var a = window.FDA.ARCHETYPEN[key];
+
+        var btn = document.createElement('button');
+        btn.className   = 'archetype-tab-btn' + (i === 0 ? ' active' : '');
+        btn.dataset.key = key;
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        btn.textContent = LABELS[i];
+        tabsEl.appendChild(btn);
+
+        var csHtml = a.fallstudien.map(function(fs) {
+          return '<div class="case-study-card">' +
+            '<div class="trans-pair">' +
+              '<div class="trans-pair-item">' +
+                '<img src="' + fs.vorher + '" alt="' + fs.name + ' vorher" loading="lazy">' +
+                '<span class="trans-label">Vorher</span>' +
+              '</div>' +
+              '<div class="trans-pair-item">' +
+                '<img src="' + fs.nachher + '" alt="' + fs.name + ' nachher" loading="lazy">' +
+                '<span class="trans-label">Nachher</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="case-study-info">' +
+              '<div class="case-meta">' +
+                '<span class="case-name">' + fs.name + '</span>' +
+                '<span class="badge">' + fs.sport + '</span>' +
+                '<span class="result-badge">' + fs.ergebnis + '</span>' +
+              '</div>' +
+              '<p class="case-quote">„' + fs.zitat + '“</p>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        var spHtml = '<ul class="archetype-pain-list">' +
+          a.schmerzpunkte.map(function(sp) { return '<li>' + sp + '</li>'; }).join('') +
+          '</ul>';
+
+        var panel = document.createElement('div');
+        panel.className   = 'archetype-panel' + (i === 0 ? ' active' : '');
+        panel.dataset.key = key;
+        panel.setAttribute('role', 'tabpanel');
+        panel.innerHTML =
+          '<div>' +
+            '<div class="section-label" style="margin-bottom:0.6rem;">' + a.name + '</div>' +
+            '<p class="archetype-tagline">' + a.tagline + '</p>' +
+            spHtml +
+            '<p class="archetype-hook">' + a.hookZitat + '</p>' +
+          '</div>' +
+          '<div class="case-studies-row">' + csHtml + '</div>';
+        panelsEl.appendChild(panel);
+      });
+
+      tabsEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('.archetype-tab-btn');
+        if (!btn) return;
+        var key = btn.dataset.key;
+        tabsEl.querySelectorAll('.archetype-tab-btn').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.key === key);
+          b.setAttribute('aria-selected', b.dataset.key === key ? 'true' : 'false');
+        });
+        panelsEl.querySelectorAll('.archetype-panel').forEach(function(p) {
+          p.classList.toggle('active', p.dataset.key === key);
+        });
+      });
+    })();
+
+    document.addEventListener('DOMContentLoaded', function() {
+      function openCalendly() { Calendly.initPopupWidget({ url: KICKOFF_CALENDLY_URL }); }
+      document.getElementById('btn-startklar-hero').addEventListener('click', openCalendly);
+      document.getElementById('btn-platz-sichern').addEventListener('click', openCalendly);
+
+      window.addEventListener('message', function(e) {
+        if (e.data && e.data.event === 'calendly.event_scheduled') {
+          zeigeErfolg();
+        }
+      });
+
+      function zeigeErfolg() {
+        document.getElementById('cta-wrap').style.display     = 'none';
+        document.getElementById('success-wrap').style.display = 'block';
+      }
+    });
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    (function() {
+      var slides = document.querySelectorAll('#coachCarouselAnm .carousel-slide');
+      var dotsContainer = document.getElementById('carouselDotsAnm');
+      var current = 0;
+      var timer;
+      if (!slides.length || !dotsContainer) return;
+      slides.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Foto ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); resetTimer(); });
+        dotsContainer.appendChild(dot);
+      });
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        if (dotsContainer.children[current]) dotsContainer.children[current].classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        if (dotsContainer.children[current]) dotsContainer.children[current].classList.add('active');
+      }
+      function resetTimer() { clearInterval(timer); timer = setInterval(function() { goTo(current + 1); }, 1500); }
+      timer = setInterval(function() { goTo(current + 1); }, 1500);
+    })();
+  </script>
+</body>
+</html>
