@@ -1,33 +1,33 @@
 /* =============================================
-   BASE.CSS — RePrime Athlet Coaching
-   Black · Silver · Red
+   BASE.CSS — RePrime Performance
+   Carbon · Silver · Red
    ============================================= */
 
 /* ---- Design-Tokens ---- */
 :root {
-  /* Hintergründe — neutral schwarz, kein Blau */
-  --bg-page:     #080808;
-  --bg-surface:  #111111;
-  --bg-elevated: #1C1C1C;
-  --bg-border:   #2E2E2E;
-  --bg-subtle:   #050505;
+  /* Hintergründe */
+  --bg-page:     #0D0D0F;   /* Carbon Black */
+  --bg-surface:  #1A1A1D;   /* Graphite */
+  --bg-elevated: #252528;   /* Above Graphite */
+  --bg-border:   #2E2E32;
+  --bg-subtle:   #0D0D0F;   /* Carbon Black */
 
   /* Text */
-  --text-primary:   #F2F2F2;
-  --text-secondary: #9A9A9A;
-  --text-muted:     #555555;
-  --text-inverse:   #080808;
+  --text-primary:   #FFFFFF;   /* Pure White */
+  --text-secondary: #B0B3B8;   /* Titanium Silver */
+  --text-muted:     #6B6F76;   /* Slate Gray */
+  --text-inverse:   #0D0D0F;
 
-  /* Rot — primäre Akzentfarbe (Aktion, CTA, Highlight) */
-  --gold:        #CC1111;
-  --gold-light:  #E03333;
-  --gold-dark:   #8B0000;
-  --gold-subtle: rgba(204,17,17,0.08);
+  /* Performance Red — primäre Akzentfarbe (CTA, Buttons, Highlights) */
+  --gold:        #C1121F;   /* Performance Red */
+  --gold-light:  #D4192A;   /* Lighter accent */
+  --gold-dark:   #8A0D16;   /* Deep Crimson — Hover, Gradients */
+  --gold-subtle: rgba(193,18,31,0.08);
 
-  /* Silber — sekundäre Akzentfarbe (Struktur, Labels, Dekor) */
-  --silver:        #C0C0C0;
-  --silver-dark:   #888888;
-  --silver-subtle: rgba(192,192,192,0.08);
+  /* Silber — Metallic Palette */
+  --silver:        #E6E6E6;   /* Platinum Silver */
+  --silver-dark:   #B0B3B8;   /* Titanium Silver */
+  --silver-subtle: rgba(230,230,230,0.08);
 
   /* Semantisch */
   --success: #2e7d5a;
@@ -48,8 +48,8 @@
   --shadow-sm:     0 1px 4px rgba(0,0,0,0.6);
   --shadow-md:     0 4px 20px rgba(0,0,0,0.7);
   --shadow-lg:     0 8px 40px rgba(0,0,0,0.8);
-  --shadow-gold:   0 0 24px rgba(204,17,17,0.18);
-  --shadow-silver: 0 0 24px rgba(192,192,192,0.10);
+  --shadow-gold:   0 0 24px rgba(193,18,31,0.18);
+  --shadow-silver: 0 0 24px rgba(230,230,230,0.10);
 
   /* Abstände */
   --max-width:  740px;

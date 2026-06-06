@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Assessment beantragen | RePrime Performance</title>
+  <meta name="description" content="Beantrage dein kostenloses Performance Assessment. 5 Minuten. Wir melden uns innerhalb von 24 Stunden.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    .bew-hero {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--bg-border);
+      padding: var(--spacing-xl) var(--spacing-sm);
+      text-align: center;
+    }
+    .bew-hero h1 {
+      max-width: 640px;
+      margin: 0 auto 1rem;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    }
+    .bew-hero .sub {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .bew-body {
+      padding: var(--spacing-xl) var(--spacing-sm);
+    }
+    .bew-form-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.97rem;
+      padding: 0.85rem 1rem;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    .form-group select option { background: #1a1a1a; }
+
+    .form-divider {
+      border: none;
+      border-top: 1px solid var(--bg-border);
+      margin: 2rem 0;
+    }
+    .form-section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .bew-success {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-xl) var(--spacing-sm);
+    }
+    .bew-success .check-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--gold-subtle);
+      border: 2px solid var(--gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .bew-success h2 { margin-bottom: 0.75rem; }
+    .bew-success p { color: var(--text-secondary); max-width: 440px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container container--wide">
+      <a href="index.html" class="site-logo-link">
+        <img src="reprime-logo.png" alt="RePrime Performance" class="site-logo">
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="bew-hero">
+    <div class="container">
+      <div class="hero-eyebrow">Performance Assessment &middot; Kostenlos &middot; 5 Minuten</div>
+      <h1>Bewirb dich f&uuml;r dein kostenloses<br>Performance Assessment.</h1>
+      <p class="sub">
+        F&uuml;lle das Formular vollst&auml;ndig aus. Wir melden uns innerhalb von 24 Stunden.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== BODY ===== -->
+  <main class="bew-body">
+    <div class="bew-form-wrap">
+
+      <!-- === APPLICATION FORM === -->
+      <form id="bewerbung-form" novalidate>
+
+        <div class="form-section-label">Deine Kontaktdaten</div>
+
+        <div class="form-group">
+          <label for="name">Vollst&auml;ndiger Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" placeholder="Vorname Nachname">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="du@beispiel.de">
+          </div>
+          <div class="form-group">
+            <label for="telefon">Telefonnummer</label>
+            <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder="+49 ...">
+          </div>
+        </div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Dein Hintergrund</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="alter">Dein Alter</label>
+            <input type="number" id="alter" name="alter" required min="25" max="65" placeholder="z.B. 42">
+          </div>
+          <div class="form-group">
+            <label for="gewicht">Aktuelles K&ouml;rpergewicht (ca.)</label>
+            <input type="text" id="gewicht" name="gewicht" required placeholder="z.B. 92 kg">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="beruf">Beruf und Branche</label>
+          <input type="text" id="beruf" name="beruf" required placeholder="z.B. Gesch&auml;ftsf&uuml;hrer, Finanzbranche">
+        </div>
+
+        <div class="form-group">
+          <label for="sport">Dein sportlicher Hintergrund</label>
+          <textarea id="sport" name="sport" required placeholder="Sportart, Niveau (Verein, Leistungskader, Profi), wie lange aktiv"></textarea>
+        </div>
+
+        <hr class="form-divider">
+        <div class="form-section-label">Deine Situation</div>
+
+        <div class="form-group">
+          <label for="ziel">Was m&ouml;chtest du konkret erreichen?</label>
+          <textarea id="ziel" name="ziel" required placeholder="Beschreibe dein gew&uuml;nschtes Ergebnis so konkret wie m&ouml;glich."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="herausforderung">Was hat bisher nicht funktioniert?</label>
+          <textarea id="herausforderung" name="herausforderung" required placeholder="Was hast du bereits versucht? Warum hat es nicht gehalten?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="investition">Bist du bereit, in deine Performance zu investieren?</label>
+          <select id="investition" name="investition" required>
+            <option value="" disabled selected>Bitte ausw&auml;hlen</option>
+            <option value="ja">Ja, wenn der Wert stimmt</option>
+            <option value="mehr_erfahren">Ich m&ouml;chte erst mehr erfahren</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dringlichkeit">Wann m&ouml;chtest du anfangen?</label>
+          <select id="dringlichkeit" name="dringlichkeit" required>
+            <option value="" disabled selected>Bitte ausw&auml;hlen</option>
+            <option value="sofort">Sofort</option>
+            <option value="4_wochen">In den n&auml;chsten 4 Wochen</option>
+            <option value="3_monate">In den n&auml;chsten 3 Monaten</option>
+          </select>
+        </div>
+
+        <div id="form-error" style="display:none; font-size:0.85rem; color:var(--error); margin-bottom:1rem;"></div>
+
+        <button type="submit" class="btn btn--primary btn--lg btn--full" id="btn-submit">
+          Bewerbung absenden &rarr;
+        </button>
+        <p style="font-size:0.72rem; color:var(--text-muted); margin-top:0.75rem; text-align:center;">
+          Qualifizierung erforderlich &middot; Wir melden uns innerhalb von 24 Stunden
+        </p>
+
+      </form>
+
+      <!-- === SUCCESS STATE === -->
+      <div class="bew-success" id="bew-success">
+        <div class="check-ring">&#10003;</div>
+        <h2>Vielen Dank f&uuml;r deine Bewerbung.</h2>
+        <p>Wir haben deine Bewerbung erhalten und melden uns innerhalb von 24 Stunden. Halte dein Telefon bereit.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>RePrime Performance &copy; 2026 &nbsp;&middot;&nbsp; <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp; <a href="datenschutz.html">Datenschutz</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var form   = document.getElementById('bewerbung-form');
+      var errEl  = document.getElementById('form-error');
+      var btnEl  = document.getElementById('btn-submit');
+      var succEl = document.getElementById('bew-success');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errEl.style.display = 'none';
+
+        /* Basic validation */
+        var required = form.querySelectorAll('[required]');
+        var missing = false;
+        required.forEach(function (el) {
+          if (!el.value.trim()) { el.style.borderColor = 'var(--error)'; missing = true; }
+          else { el.style.borderColor = ''; }
+        });
+        if (missing) {
+          errEl.textContent = 'Bitte f&uuml;lle alle Pflichtfelder aus.';
+          errEl.style.display = 'block';
+          return;
+        }
+
+        btnEl.disabled = true;
+        btnEl.textContent = 'Wird gesendet...';
+
+        /* Collect form data */
+        var data = {
+          name:            form.name.value.trim(),
+          email:           form.email.value.trim(),
+          telefon:         form.telefon.value.trim(),
+          alter:           form.alter.value.trim(),
+          gewicht:         form.gewicht.value.trim(),
+          beruf:           form.beruf.value.trim(),
+          sport:           form.sport.value.trim(),
+          ziel:            form.ziel.value.trim(),
+          herausforderung: form.herausforderung.value.trim(),
+          investition:     form.investition.value,
+          dringlichkeit:   form.dringlichkeit.value
+        };
+
+        /* POST to Cloudflare Worker */
+        fetch('https://reprime-api.reprimecoaching.com/api/bewerbung', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error('server');
+          showSuccess();
+        })
+        .catch(function () {
+          /* Fallback: open mailto with form data */
+          var body = encodeURIComponent(
+            'Name: ' + data.name + '\n' +
+            'E-Mail: ' + data.email + '\n' +
+            'Telefon: ' + data.telefon + '\n' +
+            'Alter: ' + data.alter + '\n' +
+            'Gewicht: ' + data.gewicht + '\n' +
+            'Beruf: ' + data.beruf + '\n' +
+            'Sport: ' + data.sport + '\n' +
+            'Ziel: ' + data.ziel + '\n' +
+            'Herausforderung: ' + data.herausforderung + '\n' +
+            'Investition: ' + data.investition + '\n' +
+            'Dringlichkeit: ' + data.dringlichkeit
+          );
+          window.location.href = 'mailto:daniel@reprimecoaching.com?subject=' +
+            encodeURIComponent('Neue Bewerbung: ' + data.name) + '&body=' + body;
+          showSuccess();
+        });
+      });
+
+      function showSuccess() {
+        form.style.display = 'none';
+        succEl.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 /* =============================================
-   COMPONENTS.CSS — RePrime Athlet Coaching
-   Black · Silver · Red
+   COMPONENTS.CSS — RePrime Performance
+   Carbon · Silver · Red
    ============================================= */
 
 /* ---- Buttons ---- */
@@ -36,9 +36,9 @@
   border-color: var(--gold);
 }
 .btn--primary:hover {
-  background: var(--gold-light);
-  border-color: var(--gold-light);
-  box-shadow: 0 0 32px rgba(204,17,17,0.45);
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 32px rgba(193,18,31,0.45);
   color: #ffffff;
 }
 
@@ -123,7 +123,7 @@
   border-radius: 50%;
   background: var(--gold-subtle);
   border: 1px solid var(--gold-dark);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23CC1111'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23C1121F'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-size: 11px;
   background-repeat: no-repeat;
   background-position: center;
@@ -164,7 +164,7 @@
 .form-input:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(204,17,17,0.15);
+  box-shadow: 0 0 0 3px rgba(193,18,31,0.15);
 }
 
 .form-input.is-error { border-color: var(--error); }
