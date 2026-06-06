@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Performance Assessment beantragen | RePrime Performance</title>
-  <meta name="description" content="Beantrage dein kostenloses Performance Assessment. 5 Minuten. Wir melden uns innerhalb von 24 Stunden.">
+  <title>Leistungsdiagnostik beantragen | RePrime Performance</title>
+  <meta name="description" content="Beantrage dein kostenloses Performance Assessment. 10 Minuten. Wir buchen deinen Diagnostik-Call.">
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,52 +15,187 @@
   <link rel="shortcut icon" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
-    .bew-hero {
+    /* ---- Design tokens (self-contained fallback) ---- */
+    :root {
+      --bg-page:     #0D0D0F;
+      --bg-surface:  #1A1A1D;
+      --bg-elevated: #252528;
+      --bg-border:   #2E2E32;
+      --bg-subtle:   #0D0D0F;
+      --text-primary:   #FFFFFF;
+      --text-secondary: #B0B3B8;
+      --text-muted:     #6B6F76;
+      --gold:        #C1121F;
+      --gold-light:  #D4192A;
+      --gold-dark:   #8A0D16;
+      --gold-subtle: rgba(193,18,31,0.08);
+      --silver:        #E6E6E6;
+      --silver-dark:   #B0B3B8;
+      --silver-subtle: rgba(230,230,230,0.08);
+      --error:   #c0392b;
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  14px;
+      --spacing-sm: 1rem;
+      --spacing-lg: 2.5rem;
+      --spacing-xl: 5rem;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-page);
+    }
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); }
+    h2 { font-size: clamp(1.3rem, 3vw, 1.7rem); }
+    a { color: var(--gold); }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      color: var(--silver); text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    /* Site header */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--bg-border);
+      padding: 0.5rem 0;
+    }
+    .site-header .container { display: flex; align-items: center; }
+    .site-logo { height: 52px; display: block; }
+    /* Site footer */
+    .site-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--bg-border);
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .site-footer a { color: var(--silver-dark); text-decoration: none; }
+    .site-footer a:hover { color: var(--silver); }
+
+    /* ---- Progress bar ---- */
+    .frag-progress {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--bg-border);
+      padding: 0.75rem 1rem;
+    }
+    .frag-progress-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .frag-progress-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 4.5rem;
+      text-align: right;
+    }
+    .frag-progress-track {
+      flex: 1;
+      height: 3px;
+      background: var(--bg-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .frag-progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: width 0.35s ease;
+    }
+
+    /* ---- Hero ---- */
+    .frag-hero {
       background: var(--bg-subtle);
       border-bottom: 1px solid var(--bg-border);
-      padding: var(--spacing-xl) var(--spacing-sm);
+      padding: 3rem 1rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .bew-hero h1 {
-      max-width: 640px;
-      margin: 0 auto 1rem;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    .frag-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(193,18,31,0.07) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .bew-hero .sub {
-      font-size: 1.05rem;
+    .frag-hero .container { position: relative; }
+    .frag-hero h1 { margin-bottom: 0.5rem; }
+    .frag-hero .sub {
       color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .bew-body {
-      padding: var(--spacing-xl) var(--spacing-sm);
-    }
-    .bew-form-wrap {
-      max-width: 620px;
+      font-size: 0.95rem;
+      max-width: 500px;
       margin: 0 auto;
     }
 
-    .form-group {
-      margin-bottom: 1.5rem;
+    /* ---- Form body ---- */
+    .frag-body { padding: 2.5rem 1rem 5rem; }
+    .frag-body .container { max-width: 680px; margin: 0 auto; }
+
+    /* ---- Step panels ---- */
+    .frag-step { animation: stepIn 0.25s ease; }
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ---- Section header ---- */
+    .frag-section-header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .frag-section-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .frag-section-header h2 { font-size: clamp(1.2rem, 3vw, 1.55rem); margin-bottom: 0.4rem; }
+    .frag-section-header p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+
+    /* ---- Form fields ---- */
+    .frag-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .form-group { margin-bottom: 0; }
     .form-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.45rem;
     }
     .form-group input,
     .form-group textarea,
     .form-group select {
       width: 100%;
-      background: var(--bg-surface);
+      background: var(--bg-elevated);
       border: 1px solid var(--bg-border);
-      border-radius: var(--radius-md);
+      border-radius: 8px;
       color: var(--text-primary);
       font-family: var(--font-body);
       font-size: 0.97rem;
@@ -75,189 +210,572 @@
     .form-group select:focus {
       outline: none;
       border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(193,18,31,0.12);
     }
-    .form-group textarea {
-      resize: vertical;
-      min-height: 110px;
-      line-height: 1.6;
-    }
+    .form-group textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
     .form-group select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
       padding-right: 2.5rem;
     }
-    .form-group select option { background: #1a1a1a; }
-
-    .form-divider {
-      border: none;
-      border-top: 1px solid var(--bg-border);
-      margin: 2rem 0;
-    }
-    .form-section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.25rem;
+    .form-group select option { background: var(--bg-elevated); }
+    .form-group input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+    .form-group input[type="number"]::-webkit-inner-spin-button,
+    .form-group input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; }
+    .optional-label {
+      font-size: 0.7rem; color: var(--text-muted); font-weight: 400;
+      margin-left: 0.4rem; text-transform: none; letter-spacing: 0;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ---- Two-col grid ---- */
+    .frag-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) { .frag-two-col { grid-template-columns: 1fr; } }
+
+    /* ---- Three-col grid ---- */
+    .frag-three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .frag-three-col { grid-template-columns: 1fr; } }
+
+    /* ---- Navigation ---- */
+    .frag-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--bg-border);
     }
-    @media (max-width: 520px) {
-      .form-row { grid-template-columns: 1fr; }
+    .frag-nav-back {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      cursor: pointer;
+      padding: 0.5rem 0;
+      transition: color 0.2s;
+      font-family: var(--font-body);
     }
+    .frag-nav-back:hover { color: var(--text-secondary); }
 
-    .bew-success {
-      display: none;
-      text-align: center;
-      padding: var(--spacing-xl) var(--spacing-sm);
-    }
-    .bew-success .check-ring {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--gold-subtle);
-      border: 2px solid var(--gold);
+    /* ---- Buttons ---- */
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.97rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
     }
-    .bew-success h2 { margin-bottom: 0.75rem; }
-    .bew-success p { color: var(--text-secondary); max-width: 440px; margin: 0 auto; }
+    .btn--primary { background: var(--gold); color: #fff; }
+    .btn--primary:hover { background: var(--gold-dark); box-shadow: 0 0 24px rgba(193,18,31,0.3); }
+    .btn--primary:active { transform: scale(0.98); }
+    .btn--primary:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn--lg { font-size: 1rem; padding: 1rem 2.2rem; }
+    .btn--full { width: 100%; }
+
+    /* ---- Error banner ---- */
+    .frag-error-banner {
+      display: none;
+      background: rgba(192,57,43,0.12);
+      border: 1px solid var(--error);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      color: var(--error);
+      font-size: 0.88rem;
+    }
+
+    /* ---- Success state ---- */
+    .frag-success {
+      display: none;
+      text-align: center;
+      padding: 5rem 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .frag-success .check-ring {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-dark);
+      background: var(--gold-subtle);
+      color: var(--gold);
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .frag-success h2 { margin-bottom: 0.75rem; }
+    .frag-success .success-body {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 0.5rem;
+    }
+    .frag-success .coach-sig { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+    /* ---- Mobile ---- */
+    @media (max-width: 480px) {
+      .frag-hero { padding: 2rem 1rem 1.5rem; }
+      .frag-nav { flex-direction: column-reverse; align-items: stretch; }
+      .frag-nav-back { text-align: center; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
   <header class="site-header">
-    <div class="container container--wide">
-      <a href="index.html" class="site-logo-link">
-        <img src="reprime-logo.png" alt="RePrime Performance" class="site-logo">
-      </a>
+    <div class="container">
+      <a href="index.html"><img src="reprime-logo.png" alt="RePrime Performance" class="site-logo"></a>
     </div>
   </header>
 
+  <!-- ===== PROGRESS BAR ===== -->
+  <div class="frag-progress" id="frag-progress-bar">
+    <div class="frag-progress-inner">
+      <div class="frag-progress-track">
+        <div class="frag-progress-fill" id="progress-fill" style="width:14.28%;"></div>
+      </div>
+      <div class="frag-progress-label" id="progress-label">1 von 7</div>
+    </div>
+  </div>
+
   <!-- ===== HERO ===== -->
-  <section class="bew-hero">
+  <section class="frag-hero">
     <div class="container">
-      <div class="hero-eyebrow">Performance Assessment &middot; Kostenlos &middot; 5 Minuten</div>
-      <h1>Bewirb dich f&uuml;r dein kostenloses<br>Performance Assessment.</h1>
-      <p class="sub">
-        F&uuml;lle das Formular vollst&auml;ndig aus. Wir melden uns innerhalb von 24 Stunden.
-      </p>
+      <p class="section-label">Leistungsdiagnostik &middot; Kostenlos &middot; 10 Minuten</p>
+      <h1>Deine Assessment-Bewerbung.</h1>
+      <p class="sub">F&uuml;ll alles ehrlich aus. Ich lese es durch, bevor wir sprechen &mdash; dann kommen wir im Call direkt zum Punkt.</p>
     </div>
   </section>
 
-  <!-- ===== BODY ===== -->
-  <main class="bew-body">
-    <div class="bew-form-wrap">
+  <!-- ===== FORM ===== -->
+  <main>
+    <div class="frag-body">
+      <div class="container">
 
-      <!-- === APPLICATION FORM === -->
-      <form id="bewerbung-form" novalidate>
+        <div class="frag-error-banner" id="frag-error">Bitte f&uuml;lle alle markierten Felder aus.</div>
 
-        <div class="form-section-label">Deine Kontaktdaten</div>
-
-        <div class="form-group">
-          <label for="name">Vollst&auml;ndiger Name</label>
-          <input type="text" id="name" name="name" required autocomplete="name" placeholder="Vorname Nachname">
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email">E-Mail-Adresse</label>
-            <input type="email" id="email" name="email" required autocomplete="email" placeholder="du@beispiel.de">
+        <!-- =====================
+             STEP 1 — Kontakt & Person
+             ===================== -->
+        <div class="frag-step" id="step-1">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 1 von 7</p>
+            <h2>Kontakt &amp; Person</h2>
+            <p>Grundlegende Angaben, damit wir dich einordnen und kontaktieren k&ouml;nnen.</p>
           </div>
-          <div class="form-group">
-            <label for="telefon">Telefonnummer</label>
-            <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder="+49 ...">
+
+          <div class="frag-fields">
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-name">Vollst&auml;ndiger Name <span style="color:var(--gold)">*</span></label>
+                <input type="text" id="f-name" name="name" autocomplete="name" placeholder="Vorname Nachname" required>
+              </div>
+              <div class="form-group">
+                <label for="f-email">E-Mail-Adresse <span style="color:var(--gold)">*</span></label>
+                <input type="email" id="f-email" name="email" autocomplete="email" placeholder="du@beispiel.de" required>
+              </div>
+            </div>
+
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-telefon">Telefonnummer <span style="color:var(--gold)">*</span></label>
+                <input type="tel" id="f-telefon" name="telefon" autocomplete="tel" placeholder="+49 ..." required>
+              </div>
+              <div class="form-group">
+                <label for="f-alter">Alter <span style="color:var(--gold)">*</span></label>
+                <input type="number" id="f-alter" name="alter" min="25" max="65" placeholder="z. B. 42" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-beruf">Beruf und Branche <span style="color:var(--gold)">*</span></label>
+              <input type="text" id="f-beruf" name="beruf" placeholder="z. B. Gesch&auml;ftsf&uuml;hrer, Finanzbranche" required>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <span></span>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(1)">Weiter &rarr;</button>
           </div>
         </div>
 
-        <hr class="form-divider">
-        <div class="form-section-label">Dein Hintergrund</div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="alter">Dein Alter</label>
-            <input type="number" id="alter" name="alter" required min="25" max="65" placeholder="z.B. 42">
+        <!-- =====================
+             STEP 2 — Sportliche Identität
+             ===================== -->
+        <div class="frag-step" id="step-2" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 2 von 7 &mdash; Sportliche Identit&auml;t</p>
+            <h2>Dein sportlicher Hintergrund</h2>
+            <p>Ich m&ouml;chte verstehen, wer du als Sportler warst &mdash; bevor ich verstehe, wo du heute stehst.</p>
           </div>
-          <div class="form-group">
-            <label for="gewicht">Aktuelles K&ouml;rpergewicht (ca.)</label>
-            <input type="text" id="gewicht" name="gewicht" required placeholder="z.B. 92 kg">
+
+          <div class="frag-fields">
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-sport">Sportart <span style="color:var(--gold)">*</span></label>
+                <input type="text" id="f-sport" name="sport" placeholder="z. B. Fu&szlig;ball, Rugby, Basketball" required>
+              </div>
+              <div class="form-group">
+                <label for="f-aktiv-bis">Aktiv bis Alter <span style="color:var(--gold)">*</span></label>
+                <input type="number" id="f-aktiv-bis" name="aktiv_bis" min="10" max="65" placeholder="z. B. 28" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-niveau">Auf welchem Niveau hast du gespielt? <span style="color:var(--gold)">*</span></label>
+              <select id="f-niveau" name="niveau" required>
+                <option value="" disabled selected>Bitte w&auml;hlen</option>
+                <option value="Freizeitliga">Freizeitliga</option>
+                <option value="Kreisliga">Kreisliga</option>
+                <option value="Bezirksliga">Bezirksliga</option>
+                <option value="Landes-/Verbandsliga">Landes-/Verbandsliga</option>
+                <option value="Profi/Leistungssport">Profi / Leistungssport</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="f-vermisst">Was vermisst du am meisten aus deiner aktiven Zeit? <span style="color:var(--gold)">*</span></label>
+              <textarea id="f-vermisst" name="vermisst" rows="3" placeholder="Das K&ouml;rpergef&uuml;hl, die Struktur, den Mannschaftssport &mdash; was auch immer es war." required></textarea>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(2)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(2)">Weiter &rarr;</button>
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="beruf">Beruf und Branche</label>
-          <input type="text" id="beruf" name="beruf" required placeholder="z.B. Gesch&auml;ftsf&uuml;hrer, Finanzbranche">
+        <!-- =====================
+             STEP 3 — Aktuelle Performance
+             ===================== -->
+        <div class="frag-step" id="step-3" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 3 von 7 &mdash; Aktuelle Performance</p>
+            <h2>Wo du heute stehst</h2>
+            <p>Keine Besch&ouml;nigung n&ouml;tig. Ich brauche die echten Zahlen, um dir helfen zu k&ouml;nnen.</p>
+          </div>
+
+          <div class="frag-fields">
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-gewicht">Aktuelles Gewicht (kg) <span style="color:var(--gold)">*</span></label>
+                <input type="number" id="f-gewicht" name="gewicht_aktuell" min="50" max="200" placeholder="z. B. 95" required>
+              </div>
+              <div class="form-group">
+                <label for="f-zielgewicht">Zielgewicht (kg) <span style="color:var(--gold)">*</span></label>
+                <input type="number" id="f-zielgewicht" name="gewicht_ziel" min="50" max="200" placeholder="z. B. 82" required>
+              </div>
+            </div>
+
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-training-freq">Aktuelle Trainingsfrequenz <span style="color:var(--gold)">*</span></label>
+                <select id="f-training-freq" name="training_frequenz" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Gar nicht">Gar nicht</option>
+                  <option value="1x pro Woche">1x pro Woche</option>
+                  <option value="2-3x pro Woche">2-3x pro Woche</option>
+                  <option value="4-5x pro Woche">4-5x pro Woche</option>
+                  <option value="6+ pro Woche">6+ pro Woche</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-energie">Energielevel tags&uuml;ber <span style="color:var(--gold)">*</span></label>
+                <select id="f-energie" name="energie_level" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Sehr niedrig">Sehr niedrig &mdash; ich k&auml;mpfe den ganzen Tag</option>
+                  <option value="Niedrig">Niedrig &mdash; Mittagstief, oft m&uuml;de</option>
+                  <option value="Mittel">Mittel &mdash; okay, aber nicht gut</option>
+                  <option value="Hoch">Hoch &mdash; meistens fit und wach</option>
+                  <option value="Sehr hoch">Sehr hoch &mdash; konstant leistungsf&auml;hig</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-verletzungen">Verletzungen oder k&ouml;rperliche Einschr&auml;nkungen <span class="optional-label">(optional)</span></label>
+              <textarea id="f-verletzungen" name="verletzungen" rows="2" placeholder="z. B. Knieschmerzen links, alter Schultereinriss, R&uuml;ckenprobleme seit 2019"></textarea>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(3)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(3)">Weiter &rarr;</button>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="sport">Dein sportlicher Hintergrund</label>
-          <textarea id="sport" name="sport" required placeholder="Sportart, Niveau (Verein, Leistungskader, Profi), wie lange aktiv"></textarea>
+        <!-- =====================
+             STEP 4 — Ernährung
+             ===================== -->
+        <div class="frag-step" id="step-4" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 4 von 7 &mdash; Ern&auml;hrung</p>
+            <h2>Deine Ern&auml;hrung</h2>
+            <p>Einer der h&auml;ufigsten Bottlenecks bei Ex-Sportlern &mdash; und einer der am leichtesten zu l&ouml;senden.</p>
+          </div>
+
+          <div class="frag-fields">
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-ernaehrung">Wie w&uuml;rdest du deine Ern&auml;hrung beschreiben? <span style="color:var(--gold)">*</span></label>
+                <select id="f-ernaehrung" name="ernaehrung_beschreibung" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Unstrukturiert">Unstrukturiert &mdash; esse was verf&uuml;gbar ist</option>
+                  <option value="Sporadisch gesund">Sporadisch gesund &mdash; manchmal gut, oft nicht</option>
+                  <option value="Grundsätzlich gut">Grunds&auml;tzlich gut &mdash; mit regelm&auml;&szlig;igen Ausrei&szlig;ern</option>
+                  <option value="Sehr diszipliniert">Sehr diszipliniert &mdash; aber ohne sichtbares Ergebnis</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-auswaerts">Wie oft isst du ausw&auml;rts? <span style="color:var(--gold)">*</span></label>
+                <select id="f-auswaerts" name="auswaerts_frequenz" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Selten">Selten (unter 1x pro Woche)</option>
+                  <option value="1-3x pro Woche">1-3x pro Woche</option>
+                  <option value="4-6x pro Woche">4-6x pro Woche</option>
+                  <option value="Täglich">T&auml;glich</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-alkohol">Alkoholkonsum pro Woche <span style="color:var(--gold)">*</span></label>
+              <select id="f-alkohol" name="alkohol" required>
+                <option value="" disabled selected>Bitte w&auml;hlen</option>
+                <option value="Keinen">Keinen</option>
+                <option value="1-3 Gläser">1-3 Gl&auml;ser</option>
+                <option value="4-7 Gläser">4-7 Gl&auml;ser</option>
+                <option value="8+ Gläser">8+ Gl&auml;ser</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="f-versuche">Was hast du bisher versucht, um deinen K&ouml;rper zu ver&auml;ndern? <span style="color:var(--gold)">*</span></label>
+              <textarea id="f-versuche" name="ernaehrung_versuche" rows="3" placeholder="Di&auml;ten, Pl&auml;ne, Apps, Personal Trainer &mdash; was auch immer du probiert hast und warum es nicht gehalten hat." required></textarea>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(4)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(4)">Weiter &rarr;</button>
+          </div>
         </div>
 
-        <hr class="form-divider">
-        <div class="form-section-label">Deine Situation</div>
+        <!-- =====================
+             STEP 5 — Regeneration
+             ===================== -->
+        <div class="frag-step" id="step-5" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 5 von 7 &mdash; Regeneration</p>
+            <h2>Schlaf &amp; Erholung</h2>
+            <p>Performance beginnt mit Regeneration. Das ist kein Lifestyle-Tipp &mdash; das ist Physiologie.</p>
+          </div>
 
-        <div class="form-group">
-          <label for="ziel">Was m&ouml;chtest du konkret erreichen?</label>
-          <textarea id="ziel" name="ziel" required placeholder="Beschreibe dein gew&uuml;nschtes Ergebnis so konkret wie m&ouml;glich."></textarea>
+          <div class="frag-fields">
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-schlaf-h">Schlafdauer (Stunden) <span style="color:var(--gold)">*</span></label>
+                <input type="number" id="f-schlaf-h" name="schlaf_stunden" min="3" max="12" step="0.5" placeholder="z. B. 6.5" required>
+              </div>
+              <div class="form-group">
+                <label for="f-schlaf-q">Schlafqualit&auml;t <span style="color:var(--gold)">*</span></label>
+                <select id="f-schlaf-q" name="schlaf_qualitaet" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Sehr schlecht">Sehr schlecht &mdash; wache ersch&ouml;pft auf</option>
+                  <option value="Schlecht">Schlecht &mdash; oft unterbrochen</option>
+                  <option value="Okay">Okay &mdash; weder gut noch schlecht</option>
+                  <option value="Gut">Gut &mdash; meistens erholsam</option>
+                  <option value="Sehr gut">Sehr gut &mdash; tief und durch</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-wearable">Wearable <span style="color:var(--gold)">*</span></label>
+                <select id="f-wearable" name="wearable" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Nein">Nein</option>
+                  <option value="Apple Watch">Apple Watch</option>
+                  <option value="Garmin">Garmin</option>
+                  <option value="Whoop">Whoop</option>
+                  <option value="Oura Ring">Oura Ring</option>
+                  <option value="Anderes">Anderes</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-stress">Stressniveau Arbeit <span style="color:var(--gold)">*</span></label>
+                <select id="f-stress" name="stress_level" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Gering">Gering &mdash; &uuml;berwiegend entspannt</option>
+                  <option value="Mittel">Mittel &mdash; gelegentlich stressig</option>
+                  <option value="Hoch">Hoch &mdash; oft unter Druck</option>
+                  <option value="Sehr hoch">Sehr hoch &mdash; fast t&auml;glich intensiv</option>
+                  <option value="Chronisch hoch">Chronisch hoch &mdash; dauerhafter Hochdruck</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(5)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(5)">Weiter &rarr;</button>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="herausforderung">Was hat bisher nicht funktioniert?</label>
-          <textarea id="herausforderung" name="herausforderung" required placeholder="Was hast du bereits versucht? Warum hat es nicht gehalten?"></textarea>
+        <!-- =====================
+             STEP 6 — Alltag & Reise
+             ===================== -->
+        <div class="frag-step" id="step-6" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 6 von 7 &mdash; Alltag &amp; Reise</p>
+            <h2>Dein Alltag</h2>
+            <p>Der Plan muss in dein Leben passen &mdash; nicht umgekehrt. Ich brauche das echte Bild.</p>
+          </div>
+
+          <div class="frag-fields">
+            <div class="form-group">
+              <label for="f-alltag">Wie sieht dein typischer Arbeitstag aus? <span style="color:var(--gold)">*</span></label>
+              <textarea id="f-alltag" name="alltag" rows="4" placeholder="Wann stehst du auf? B&uuml;ro oder Home-Office? Meetings, Reisen, Pendelzeit? Wann kommst du heim?" required></textarea>
+            </div>
+
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-reise">Berufliche Reiseh&auml;ufigkeit <span style="color:var(--gold)">*</span></label>
+                <select id="f-reise" name="reise_frequenz" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Nie oder sehr selten">Nie oder sehr selten</option>
+                  <option value="1-2x im Monat">1-2x im Monat</option>
+                  <option value="1x pro Woche">1x pro Woche</option>
+                  <option value="Mehrmals pro Woche">Mehrmals pro Woche</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-training-h">Trainingszeit pro Woche (realistisch) <span style="color:var(--gold)">*</span></label>
+                <select id="f-training-h" name="training_stunden" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Unter 2 Stunden">Unter 2 Stunden</option>
+                  <option value="2-4 Stunden">2-4 Stunden</option>
+                  <option value="4-6 Stunden">4-6 Stunden</option>
+                  <option value="6-8 Stunden">6-8 Stunden</option>
+                  <option value="Mehr als 8 Stunden">Mehr als 8 Stunden</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-training-zeit">Bevorzugte Trainingszeit <span style="color:var(--gold)">*</span></label>
+              <select id="f-training-zeit" name="training_zeit" required>
+                <option value="" disabled selected>Bitte w&auml;hlen</option>
+                <option value="Früh morgens (vor 8 Uhr)">Fr&uuml;h morgens (vor 8 Uhr)</option>
+                <option value="Vormittags (8-12 Uhr)">Vormittags (8-12 Uhr)</option>
+                <option value="Mittags (12-15 Uhr)">Mittags (12-15 Uhr)</option>
+                <option value="Abends (nach 17 Uhr)">Abends (nach 17 Uhr)</option>
+                <option value="Kein fester Zeitpunkt">Kein fester Zeitpunkt</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(6)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" onclick="nextStep(6)">Weiter &rarr;</button>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="investition">Bist du bereit, in deine Performance zu investieren?</label>
-          <select id="investition" name="investition" required>
-            <option value="" disabled selected>Bitte ausw&auml;hlen</option>
-            <option value="ja">Ja, wenn der Wert stimmt</option>
-            <option value="mehr_erfahren">Ich m&ouml;chte erst mehr erfahren</option>
-          </select>
+        <!-- =====================
+             STEP 7 — Ziele & Investition
+             ===================== -->
+        <div class="frag-step" id="step-7" style="display:none;">
+          <div class="frag-section-header">
+            <p class="frag-section-num">Abschnitt 7 von 7 &mdash; Ziele &amp; Investition</p>
+            <h2>Was du erreichen willst</h2>
+            <p>Konkret, ehrlich &mdash; und ohne das, was du glaubst, was ich h&ouml;ren will.</p>
+          </div>
+
+          <div class="frag-fields">
+            <div class="form-group">
+              <label for="f-ziel-90">Was m&ouml;chtest du in den n&auml;chsten 90 Tagen konkret erreichen? <span style="color:var(--gold)">*</span></label>
+              <textarea id="f-ziel-90" name="ziel_90_tage" rows="4" placeholder="Nicht 'abnehmen' oder 'fitter werden'. Was genau? Wie viel? Woran wirst du merken, dass du es geschafft hast?" required></textarea>
+            </div>
+
+            <div class="frag-two-col">
+              <div class="form-group">
+                <label for="f-lebensbereich">Welcher Lebensbereich soll am meisten profitieren? <span style="color:var(--gold)">*</span></label>
+                <select id="f-lebensbereich" name="lebensbereich" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Karriere & Leistungsfähigkeit">Karriere &amp; Leistungsf&auml;higkeit</option>
+                  <option value="Familie & Präsenz">Familie &amp; Pr&auml;senz</option>
+                  <option value="Sport & Freizeit">Sport &amp; Freizeit</option>
+                  <option value="Gesundheit & Langlebigkeit">Gesundheit &amp; Langlebigkeit</option>
+                  <option value="Selbstbild & Identität">Selbstbild &amp; Identit&auml;t</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="f-dringlichkeit">Wann m&ouml;chtest du anfangen? <span style="color:var(--gold)">*</span></label>
+                <select id="f-dringlichkeit" name="dringlichkeit" required>
+                  <option value="" disabled selected>Bitte w&auml;hlen</option>
+                  <option value="Sofort">Sofort</option>
+                  <option value="In den nächsten 4 Wochen">In den n&auml;chsten 4 Wochen</option>
+                  <option value="In den nächsten 3 Monaten">In den n&auml;chsten 3 Monaten</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="f-ereignisse">Wichtige Ereignisse in den n&auml;chsten 6 Monaten <span class="optional-label">(optional)</span></label>
+              <textarea id="f-ereignisse" name="ereignisse" rows="2" placeholder="Hochzeit, Klassentreffen, Urlaub &mdash; alles, f&uuml;r das du bis dahin eine bestimmte Form haben willst."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="f-investition">Bist du bereit, in deine Performance zu investieren? <span style="color:var(--gold)">*</span></label>
+              <select id="f-investition" name="investition" required>
+                <option value="" disabled selected>Bitte w&auml;hlen</option>
+                <option value="Ja, wenn der Wert stimmt">Ja, wenn der Wert stimmt</option>
+                <option value="Ich möchte erst mehr erfahren">Ich m&ouml;chte erst mehr erfahren</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="frag-nav">
+            <button class="frag-nav-back" type="button" onclick="prevStep(7)">&larr; Zur&uuml;ck</button>
+            <button class="btn btn--primary btn--lg" type="button" id="btn-submit" onclick="submitBewerbung()">
+              Bewerbung absenden &rarr;
+            </button>
+          </div>
+          <p style="font-size:0.72rem; color:var(--text-muted); margin-top:0.75rem; text-align:right;">
+            Kostenlos &middot; Keine Verpflichtung &middot; Deine Daten werden vertraulich behandelt
+          </p>
         </div>
 
-        <div class="form-group">
-          <label for="dringlichkeit">Wann m&ouml;chtest du anfangen?</label>
-          <select id="dringlichkeit" name="dringlichkeit" required>
-            <option value="" disabled selected>Bitte ausw&auml;hlen</option>
-            <option value="sofort">Sofort</option>
-            <option value="4_wochen">In den n&auml;chsten 4 Wochen</option>
-            <option value="3_monate">In den n&auml;chsten 3 Monaten</option>
-          </select>
+        <!-- =====================
+             SUCCESS STATE
+             ===================== -->
+        <div class="frag-success" id="frag-success">
+          <div class="check-ring" aria-hidden="true">&#10003;</div>
+          <h2>Deine Bewerbung ist eingegangen.</h2>
+          <p class="success-body">
+            Ich lese alles durch, bevor wir sprechen. Kein Smalltalk, keine allgemeinen Fragen &mdash; wir fangen genau da an, wo du stehst.
+          </p>
+          <p class="success-body">
+            Als n&auml;chstes: Buch deinen Assessment-Termin. Du w&auml;hlst den Zeitpunkt &mdash; ich bereite mich vor.
+          </p>
+          <a href="termin.html" class="btn btn--primary btn--lg" style="margin-top:1.5rem;">
+            Jetzt Termin buchen &rarr;
+          </a>
+          <p class="coach-sig">Daniel, RePrime Performance</p>
         </div>
 
-        <div id="form-error" style="display:none; font-size:0.85rem; color:var(--error); margin-bottom:1rem;"></div>
-
-        <button type="submit" class="btn btn--primary btn--lg btn--full" id="btn-submit">
-          Bewerbung absenden &rarr;
-        </button>
-        <p style="font-size:0.72rem; color:var(--text-muted); margin-top:0.75rem; text-align:center;">
-          Qualifizierung erforderlich &middot; Wir melden uns innerhalb von 24 Stunden
-        </p>
-
-      </form>
-
-      <!-- === SUCCESS STATE === -->
-      <div class="bew-success" id="bew-success">
-        <div class="check-ring">&#10003;</div>
-        <h2>Deine Bewerbung ist eingegangen.</h2>
-        <p>Als n&auml;chstes: Buch deinen Assessment-Termin. Du w&auml;hlst den Zeitpunkt &mdash; wir bereiten alles vor.</p>
-        <a href="termin.html" class="btn btn--primary btn--lg" style="margin-top:1.5rem; display:inline-block;">
-          Jetzt Termin buchen &rarr;
-        </a>
       </div>
-
     </div>
   </main>
 
@@ -269,84 +787,139 @@
   </footer>
 
   <script>
-    (function () {
-      var form   = document.getElementById('bewerbung-form');
-      var errEl  = document.getElementById('form-error');
-      var btnEl  = document.getElementById('btn-submit');
-      var succEl = document.getElementById('bew-success');
+  (function () {
+    var TOTAL_STEPS = 7;
+    var WORKER_URL = 'https://reprime-api.reprimecoaching.com/api/bewerbung';
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        errEl.style.display = 'none';
+    function updateProgress(step) {
+      var pct = (step / TOTAL_STEPS * 100).toFixed(1);
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-label').textContent = step + ' von ' + TOTAL_STEPS;
+    }
 
-        /* Basic validation */
-        var required = form.querySelectorAll('[required]');
-        var missing = false;
-        required.forEach(function (el) {
-          if (!el.value.trim()) { el.style.borderColor = 'var(--error)'; missing = true; }
-          else { el.style.borderColor = ''; }
-        });
-        if (missing) {
-          errEl.textContent = 'Bitte f&uuml;lle alle Pflichtfelder aus.';
-          errEl.style.display = 'block';
-          return;
-        }
-
-        btnEl.disabled = true;
-        btnEl.textContent = 'Wird gesendet...';
-
-        /* Collect form data */
-        var data = {
-          name:            form.name.value.trim(),
-          email:           form.email.value.trim(),
-          telefon:         form.telefon.value.trim(),
-          alter:           form.alter.value.trim(),
-          gewicht:         form.gewicht.value.trim(),
-          beruf:           form.beruf.value.trim(),
-          sport:           form.sport.value.trim(),
-          ziel:            form.ziel.value.trim(),
-          herausforderung: form.herausforderung.value.trim(),
-          investition:     form.investition.value,
-          dringlichkeit:   form.dringlichkeit.value
-        };
-
-        /* POST to Cloudflare Worker */
-        fetch('https://reprime-api.reprimecoaching.com/api/bewerbung', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(function (res) {
-          if (!res.ok) throw new Error('server');
-          showSuccess();
-        })
-        .catch(function () {
-          /* Fallback: open mailto with form data */
-          var body = encodeURIComponent(
-            'Name: ' + data.name + '\n' +
-            'E-Mail: ' + data.email + '\n' +
-            'Telefon: ' + data.telefon + '\n' +
-            'Alter: ' + data.alter + '\n' +
-            'Gewicht: ' + data.gewicht + '\n' +
-            'Beruf: ' + data.beruf + '\n' +
-            'Sport: ' + data.sport + '\n' +
-            'Ziel: ' + data.ziel + '\n' +
-            'Herausforderung: ' + data.herausforderung + '\n' +
-            'Investition: ' + data.investition + '\n' +
-            'Dringlichkeit: ' + data.dringlichkeit
-          );
-          window.location.href = 'mailto:daniel@reprimecoaching.com?subject=' +
-            encodeURIComponent('Neue Bewerbung: ' + data.name) + '&body=' + body;
-          showSuccess();
-        });
-      });
-
-      function showSuccess() {
-        form.style.display = 'none';
-        succEl.style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    function showStep(n) {
+      for (var i = 1; i <= TOTAL_STEPS; i++) {
+        var el = document.getElementById('step-' + i);
+        if (el) el.style.display = (i === n) ? 'block' : 'none';
       }
-    })();
+      updateProgress(n);
+      hideError();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(n) {
+      var step = document.getElementById('step-' + n);
+      if (!step) return true;
+      var valid = true;
+      step.querySelectorAll('[required]').forEach(function (f) {
+        f.style.borderColor = '';
+        if (!f.value.trim()) { f.style.borderColor = '#c0392b'; valid = false; }
+      });
+      return valid;
+    }
+
+    function showError() {
+      var el = document.getElementById('frag-error');
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideError() { document.getElementById('frag-error').style.display = 'none'; }
+
+    window.nextStep = function (from) {
+      if (!validateStep(from)) { showError(); return; }
+      if (from < TOTAL_STEPS) showStep(from + 1);
+    };
+    window.prevStep = function (from) {
+      if (from > 1) showStep(from - 1);
+    };
+
+    function val(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
+
+    function collect() {
+      return {
+        /* Contact */
+        name:                    val('f-name'),
+        email:                   val('f-email'),
+        telefon:                 val('f-telefon'),
+        alter:                   val('f-alter'),
+        beruf:                   val('f-beruf'),
+        /* Athletic identity */
+        sport:                   val('f-sport'),
+        aktiv_bis:               val('f-aktiv-bis'),
+        niveau:                  val('f-niveau'),
+        vermisst:                val('f-vermisst'),
+        /* Current performance */
+        gewicht_aktuell:         val('f-gewicht'),
+        gewicht_ziel:            val('f-zielgewicht'),
+        training_frequenz:       val('f-training-freq'),
+        energie_level:           val('f-energie'),
+        verletzungen:            val('f-verletzungen'),
+        /* Nutrition */
+        ernaehrung_beschreibung: val('f-ernaehrung'),
+        auswaerts_frequenz:      val('f-auswaerts'),
+        alkohol:                 val('f-alkohol'),
+        ernaehrung_versuche:     val('f-versuche'),
+        /* Recovery */
+        schlaf_stunden:          val('f-schlaf-h'),
+        schlaf_qualitaet:        val('f-schlaf-q'),
+        wearable:                val('f-wearable'),
+        stress_level:            val('f-stress'),
+        /* Daily life */
+        alltag:                  val('f-alltag'),
+        reise_frequenz:          val('f-reise'),
+        training_stunden:        val('f-training-h'),
+        training_zeit:           val('f-training-zeit'),
+        /* Goals */
+        ziel_90_tage:            val('f-ziel-90'),
+        lebensbereich:           val('f-lebensbereich'),
+        dringlichkeit:           val('f-dringlichkeit'),
+        ereignisse:              val('f-ereignisse'),
+        investition:             val('f-investition')
+      };
+    }
+
+    window.submitBewerbung = function () {
+      if (!validateStep(7)) { showError(); return; }
+      hideError();
+
+      var btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet...';
+
+      var data = collect();
+
+      fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('server');
+        showSuccess();
+      })
+      .catch(function () {
+        /* Fallback: mailto */
+        var lines = Object.entries(data).map(function(kv) { return kv[0] + ': ' + kv[1]; });
+        window.location.href = 'mailto:daniel@reprimecoaching.com' +
+          '?subject=' + encodeURIComponent('Neue Bewerbung: ' + data.name) +
+          '&body='    + encodeURIComponent(lines.join('\n'));
+        showSuccess();
+      });
+    };
+
+    function showSuccess() {
+      for (var i = 1; i <= TOTAL_STEPS; i++) {
+        var el = document.getElementById('step-' + i);
+        if (el) el.style.display = 'none';
+      }
+      document.getElementById('frag-progress-bar').style.display = 'none';
+      document.getElementById('frag-success').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Init */
+    showStep(1);
+  })();
   </script>
 
 </body>
