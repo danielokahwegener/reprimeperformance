@@ -8,12 +8,81 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="components.css">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
   <link rel="shortcut icon" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
+    /* ---- Design tokens (self-contained fallback) ---- */
+    :root {
+      --bg-page:     #0D0D0F;
+      --bg-surface:  #1A1A1D;
+      --bg-elevated: #252528;
+      --bg-border:   #2E2E32;
+      --bg-subtle:   #0D0D0F;
+      --text-primary:   #FFFFFF;
+      --text-secondary: #B0B3B8;
+      --text-muted:     #6B6F76;
+      --gold:        #C1121F;
+      --gold-light:  #D4192A;
+      --gold-dark:   #8A0D16;
+      --gold-subtle: rgba(193,18,31,0.08);
+      --silver:        #E6E6E6;
+      --silver-dark:   #B0B3B8;
+      --silver-subtle: rgba(230,230,230,0.08);
+      --error:   #c0392b;
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-lg:  14px;
+      --shadow-gold: 0 0 24px rgba(193,18,31,0.18);
+      --max-width:  740px;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2.5rem;
+      --spacing-xl: 5rem;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-page);
+    }
+    h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); }
+    h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+    a { color: var(--gold); }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+      color: var(--silver); text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    /* Site header */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,15,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--bg-border);
+      padding: 0.5rem 0;
+    }
+    .site-header .container { display: flex; align-items: center; }
+    .site-logo { height: 52px; display: block; }
+    /* Site footer */
+    .site-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--bg-border);
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .site-footer a { color: var(--silver-dark); text-decoration: none; }
+    .site-footer a:hover { color: var(--silver); }
+
     /* ---- Progress bar ---- */
     .frag-progress {
       position: sticky;
