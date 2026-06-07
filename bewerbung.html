@@ -693,11 +693,11 @@
         </div>
 
         <!-- =====================
-             STEP 7 — Ziele & Investition
+             STEP 7 — Ziele
              ===================== -->
         <div class="frag-step" id="step-7" style="display:none;">
           <div class="frag-section-header">
-            <p class="frag-section-num">Abschnitt 7 von 7 &mdash; Ziele &amp; Investition</p>
+            <p class="frag-section-num">Abschnitt 7 von 7 &mdash; Deine Ziele</p>
             <h2>Was du erreichen willst</h2>
             <p>Konkret, ehrlich &mdash; und ohne das, was du glaubst, was ich h&ouml;ren will.</p>
           </div>
@@ -708,41 +708,21 @@
               <textarea id="f-ziel-90" name="ziel_90_tage" rows="4" placeholder="Nicht 'abnehmen' oder 'fitter werden'. Was genau? Wie viel? Woran wirst du merken, dass du es geschafft hast?" required></textarea>
             </div>
 
-            <div class="frag-two-col">
-              <div class="form-group">
-                <label for="f-lebensbereich">Welcher Lebensbereich soll am meisten profitieren? <span style="color:var(--gold)">*</span></label>
-                <select id="f-lebensbereich" name="lebensbereich" required>
-                  <option value="" disabled selected>Bitte w&auml;hlen</option>
-                  <option value="Karriere & Leistungsfähigkeit">Karriere &amp; Leistungsf&auml;higkeit</option>
-                  <option value="Familie & Präsenz">Familie &amp; Pr&auml;senz</option>
-                  <option value="Sport & Freizeit">Sport &amp; Freizeit</option>
-                  <option value="Gesundheit & Langlebigkeit">Gesundheit &amp; Langlebigkeit</option>
-                  <option value="Selbstbild & Identität">Selbstbild &amp; Identit&auml;t</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="f-dringlichkeit">Wann m&ouml;chtest du anfangen? <span style="color:var(--gold)">*</span></label>
-                <select id="f-dringlichkeit" name="dringlichkeit" required>
-                  <option value="" disabled selected>Bitte w&auml;hlen</option>
-                  <option value="Sofort">Sofort</option>
-                  <option value="In den nächsten 4 Wochen">In den n&auml;chsten 4 Wochen</option>
-                  <option value="In den nächsten 3 Monaten">In den n&auml;chsten 3 Monaten</option>
-                </select>
-              </div>
+            <div class="form-group">
+              <label for="f-lebensbereich">Welcher Lebensbereich soll am meisten profitieren? <span style="color:var(--gold)">*</span></label>
+              <select id="f-lebensbereich" name="lebensbereich" required>
+                <option value="" disabled selected>Bitte w&auml;hlen</option>
+                <option value="Karriere & Leistungsfähigkeit">Karriere &amp; Leistungsf&auml;higkeit</option>
+                <option value="Familie & Präsenz">Familie &amp; Pr&auml;senz</option>
+                <option value="Sport & Freizeit">Sport &amp; Freizeit</option>
+                <option value="Gesundheit & Langlebigkeit">Gesundheit &amp; Langlebigkeit</option>
+                <option value="Selbstbild & Identität">Selbstbild &amp; Identit&auml;t</option>
+              </select>
             </div>
 
             <div class="form-group">
               <label for="f-ereignisse">Wichtige Ereignisse in den n&auml;chsten 6 Monaten <span class="optional-label">(optional)</span></label>
               <textarea id="f-ereignisse" name="ereignisse" rows="2" placeholder="Hochzeit, Klassentreffen, Urlaub &mdash; alles, f&uuml;r das du bis dahin eine bestimmte Form haben willst."></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="f-investition">Bist du bereit, in deine Performance zu investieren? <span style="color:var(--gold)">*</span></label>
-              <select id="f-investition" name="investition" required>
-                <option value="" disabled selected>Bitte w&auml;hlen</option>
-                <option value="Ja, wenn der Wert stimmt">Ja, wenn der Wert stimmt</option>
-                <option value="Ich möchte erst mehr erfahren">Ich m&ouml;chte erst mehr erfahren</option>
-              </select>
             </div>
           </div>
 
@@ -762,16 +742,13 @@
              ===================== -->
         <div class="frag-success" id="frag-success">
           <div class="check-ring" aria-hidden="true">&#10003;</div>
-          <h2>Deine Bewerbung ist eingegangen.</h2>
+          <h2>Deine Angaben sind eingegangen.</h2>
           <p class="success-body">
-            Ich lese alles durch, bevor wir sprechen. Kein Smalltalk, keine allgemeinen Fragen &mdash; wir fangen genau da an, wo du stehst.
+            Ich werte jetzt alles aus und erstelle deinen pers&ouml;nlichen Leistungsbericht - mit deinem Performance Score, deinen gr&ouml;&szlig;ten Leistungsbremsen und einer individuellen 90-Tage-Roadmap.
           </p>
           <p class="success-body">
-            Als n&auml;chstes: Buch deinen Leistungsdiagnostik-Termin. Du w&auml;hlst den Zeitpunkt &mdash; ich bereite mich vor.
+            Du bekommst ihn in den n&auml;chsten Tagen direkt per E-Mail. Im Anschluss melde ich mich pers&ouml;nlich bei dir - per Telefon oder Nachricht - um alles gemeinsam durchzugehen.
           </p>
-          <a href="termin.html" class="btn btn--primary btn--lg" style="margin-top:1.5rem;">
-            Jetzt Termin buchen &rarr;
-          </a>
           <p class="coach-sig">Daniel, RePrime Performance</p>
         </div>
 
@@ -872,9 +849,7 @@
         /* Goals */
         ziel_90_tage:            val('f-ziel-90'),
         lebensbereich:           val('f-lebensbereich'),
-        dringlichkeit:           val('f-dringlichkeit'),
-        ereignisse:              val('f-ereignisse'),
-        investition:             val('f-investition')
+        ereignisse:              val('f-ereignisse')
       };
     }
 
