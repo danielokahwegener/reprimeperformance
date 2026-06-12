@@ -364,8 +364,8 @@
   <section class="frag-hero">
     <div class="container">
       <p class="section-label">Leistungsdiagnostik &middot; Kostenlos &middot; 10 Minuten</p>
-      <h1>Deine Leistungsdiagnostik-Bewerbung.</h1>
-      <p class="sub">F&uuml;ll alles ehrlich aus. Wir lesen es durch, bevor wir sprechen &mdash; dann kommen wir im Call direkt zum Punkt.</p>
+      <h1>Deine Leistungsdiagnostik beantragen.</h1>
+      <p class="sub">F&uuml;ll alles ehrlich aus. Wir analysieren deinen Hintergrund und aktuelle Situation, danach erhälts du deine persönliche Leistungsdiagnostik</p>
     </div>
   </section>
 
@@ -868,6 +868,7 @@
     window.submitBewerbung = function () {
       if (!validateStep(7)) { showError(); return; }
       hideError();
+      if (typeof fbq === 'function') fbq('trackCustom', 'BewerbungSubmitted');
 
       var btn = document.getElementById('btn-submit');
       btn.disabled = true;
