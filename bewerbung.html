@@ -279,6 +279,18 @@
     .btn--primary:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn--lg { font-size: 1rem; padding: 1rem 2.2rem; }
     .btn--full { width: 100%; }
+    .btn-spinner {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.6rem;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      vertical-align: -2px;
+      animation: btn-spin 0.7s linear infinite;
+    }
+    @keyframes btn-spin { to { transform: rotate(360deg); } }
 
     /* ---- Error banner ---- */
     .frag-error-banner {
@@ -988,7 +1000,7 @@
 
       var btn = document.getElementById('btn-submit');
       btn.disabled = true;
-      btn.textContent = 'Wird gesendet...';
+      btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span>Wird gesendet...';
 
       var data = collect();
 
