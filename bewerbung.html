@@ -1032,7 +1032,9 @@
         if (typeof fbq === 'function') {
           fbq('track', 'Lead', { tier: result.tier, score: result.performanceScore });
         }
-        window.location.href = 'diagnose-ergebnis.html';
+        setTimeout(function () {
+          window.location.href = 'diagnose-ergebnis.html';
+        }, 300);
       })
       .catch(function () {
         /* Fallback: mailto */
